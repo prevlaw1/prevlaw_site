@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Boilerplate for project using CCM Design System",
   "scripts": {
-    "dev": "nuxt dev",
-    "generate": "nuxt generate"
+    "dev": "node fileImport.js && nuxt dev",
+    "generate": "node fileImport.js && nuxt generate"
   },
   "devDependencies": {
     "node-sass": "^7.0.1",
