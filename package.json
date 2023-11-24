@@ -2,6 +2,9 @@
   "name": "boilerplate-ds",
   "version": "1.0.0",
   "description": "Boilerplate for project using CCM Design System",
+  "engines": {
+    "node": "16.20.0"
+  },
   "scripts": {
     "dev": "node fileImport.js && nuxt dev",
     "generate": "node fileImport.js && nuxt generate",
