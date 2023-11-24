@@ -1,7 +1,7 @@
 <template>
-  <main>
-    
-  </main>
+  <section>
+    <homeHero />
+  </section>
 </template>
 
 <script>
