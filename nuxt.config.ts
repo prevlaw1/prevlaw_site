@@ -10,15 +10,11 @@ export default defineNuxtConfig({
     ],
     script: [],
     link: [
-      { rel: "stylesheet", href: "https://use.typekit.net/tsd2tcy.css" },
-      {
-        rel: "stylesheet",
-        href:
-          "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined",
-      },
     ],
   },
   css: [
+    '/public/css/theme.scss',
+    '/public/css/style.scss',
   ],
   components: {
     "dirs": [

@@ -206,6 +206,8 @@ const generator = async () => {
               slug: slugify(fields.titulo),
               title: fields.titulo,
               capa: await getImage(fields.capa.sys.id),
+              url: fields.url,
+              ref: false
             }
           }
           fs.access(reelDir, fs.constants.R_OK | fs.constants.W_OK, async (err) => {
