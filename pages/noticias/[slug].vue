@@ -30,6 +30,11 @@
                 </div>
             </div>
         </section>
+        <section class="extra-content">
+            <div class="center" size="wide">
+            </div>
+            <banner-principal></banner-principal>
+        </section>
     </article>
 </template>
 
@@ -43,8 +48,16 @@
         slug: blogData.author
     }).findOne();
     const categoria = await queryContent('categorias').where({
-        slug: blogData.categorry
+        slug: blogData.category
     }).findOne();
+    const otherBlogData = await queryContent('publicacoes').where({
+        author: blogData.author,
+        slug: { $ne: blogData.slug }
+    }).find();
+    const relatedBlogData = await queryContent('publicacoes').where({
+        category: blogData.category,
+        slug: { $ne: blogData.slug }
+    }).find();
 
     const data = reactive({
         blog: blogData,
@@ -163,5 +176,13 @@
             @media screen and (max-width: 36em) {
                 width: 100%;
             }
+        }
+
+        .extra-content {
+            flex-grow: 1;
+            display: flex;
+            flex-flow: column nowrap;
+            gap: 48px;
+            padding-bottom: 64px;
         }
 </style>
