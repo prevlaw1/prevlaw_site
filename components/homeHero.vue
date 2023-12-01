@@ -142,7 +142,19 @@ onMounted(() => {
             right: 0;
             bottom: 0;
             z-index: 1;
-            background: linear-gradient(2.43deg, rgba(0, 0, 0, 0.8) 1.51%, rgba(40, 59, 99, 0) 59.09%, rgba(0, 0, 0, 0.8) 97.43%);
+            background: black;
+            opacity: 0.5;
+        }
+        &::after {
+            content: '';	
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            background: var(--base-gradient);
+            opacity: 0.3;
         }
     }
 
@@ -183,5 +195,10 @@ onMounted(() => {
         left: auto;
         right: auto;
         bottom: 40px;
+        @media screen and (max-width: 36em) {
+          width: 100%;
+          display: flex;
+          justify-content: center;
+        }
     }
 </style>

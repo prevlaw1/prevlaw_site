@@ -18,12 +18,18 @@
     --body-font: 'Lato', sans-serif;	
     --display-font: 'Inter', sans-serif;
 
+    --base-gradient: linear-gradient(to bottom, hsl(221,42%,0%) 0%, hsl(221,42%,27%) 60%, hsla(221,42%,0%) 100%);
+
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     font-family: var(--body-font);
     line-height: 1.2em;
     color: var(--base-color-90);
+}
+
+body {
+    background-color: #F2F2F2;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -41,4 +47,8 @@ h1, h2, h3, h4, h5, h6 {
         background-color: hsla(0, 0%, 100%, 0.6);
         color: #000;
     }
+}
+
+img {
+    width: 100%;
 }

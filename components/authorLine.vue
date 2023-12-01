@@ -1,5 +1,5 @@
 <template>
-    <div class="author-line">
+    <div class="author-line" :color="props.color">
         <div class="author">
             <div class="author__image" :style="`background-image:url(${props.autorImage});`"></div>
             <span class="author__name">{{ props.autor }}</span>
@@ -17,10 +17,17 @@
             type: String,
             default: 'https://picsum.photos/200/300',
         },
+        color: {
+            type: String,
+            default: 'base',
+        },
     });
 </script>
 
 <style lang="scss" scoped>
+    [color="secondary"] *{
+        color: white;
+    }
     .author-line {
         display: flex;
         flex-flow: row nowrap;
