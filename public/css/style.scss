@@ -78,3 +78,23 @@
     font-family: var(--body-font);
     font-size: 1.375em;
 }
+
+.breadcrumbs {
+    --breadcrumbs-hsl: 0, 0%, 100%;
+    z-index: 2;
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    gap: 4px;
+}
+
+    .breadcrumbs a.breadcrumbs__link,
+    .breadcrumbs p.breadcrumbs__current {
+        color: hsla(var(--breadcrumbs-hsl), 0.6);
+        text-decoration: underline;
+        font-family: var(--display-font);
+    }
+    .breadcrumbs p.breadcrumbs__current {
+        color: hsla(var(--breadcrumbs-hsl), 1);
+    }

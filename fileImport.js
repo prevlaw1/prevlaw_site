@@ -144,6 +144,7 @@ const generator = async () => {
         let update = {
           slug: slugify(fields.titulo),
           title: fields.titulo,
+          tagline: fields.tagline,
           author: slugify(author.name),
           date: fields.data,
           cover: await getImage(fields.capa.sys.id),

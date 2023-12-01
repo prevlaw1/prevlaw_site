@@ -21,6 +21,7 @@
     "jsdom": "^22.1.0",
     "path": "^0.12.7",
     "sass": "^1.54.4",
-    "showdown": "^2.1.0"
+    "showdown": "^2.1.0",
+    "vue-social-sharing": "^4.0.0-alpha4"
   }
 }
