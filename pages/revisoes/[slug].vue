@@ -1,6 +1,7 @@
 <template>
     <article>
         <section class="hero" :style="`background-image: url(${data.blog.cover});`">
+            <pl-menu></pl-menu>
             <div class="center | hero__content" size="wide">
                 <h1 class="hero__title">{{ data.blog.title }}</h1>
                 <div class="hero__subtitle">{{ data.blog.date }} (Atualizado em {{ data.blog.atualizacao }})</div>

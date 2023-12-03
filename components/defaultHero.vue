@@ -1,5 +1,6 @@
 <template>
     <header class="hero | default-hero" :style="`background-image:url(${image})`">
+      <pl-menu></pl-menu>
       <slot></slot>
     </header>
 </template>
@@ -44,6 +45,9 @@
             z-index: 1;
             background: var(--base-gradient);
             opacity: 0.3;
+        }
+        @media (max-width: 36em) {
+            height: 350px;
         }
     }
 

@@ -1,5 +1,6 @@
 <template>
     <header class="hero">
+        <pl-menu></pl-menu>
         <div class="hero__reel | hero-reel | reel">
             <div class="hero-reel__item" v-for="i in data.items" v-bind:key="i.slug">
                 <div class="hero-reel__image" :style="{ backgroundImage: `url(${i.image})` }"></div>

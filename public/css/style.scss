@@ -1,4 +1,5 @@
 .hero {
+    position: relative;
     width: 100%;
     min-height: 450px;
     height: 450px;
@@ -156,19 +157,27 @@
     }
 
     .button {
-        padding: 12px 24px;
+        display: inline-block;
+        padding: 0 24px;
         border: none;
         text-decoration: none;
         font-weight: 700;
         text-align: center;
         cursor: pointer;
         height: 40px;
+        line-height: 40px;
         border-radius: 20px;
     }
 
         .button--primary {
             background-color: #0054A8;
             color: white;
+        }
+
+        .button--secondary {
+            background: none;
+            border: 1px solid white;
+            color: hsla(0, 0%, 100%, 0.9);
         }
 
         .button--full {
@@ -225,5 +234,17 @@
         font-size: 1.625en;
         font-weight: 500;
         color: white;
+    }
+}
+
+.not-mobile {
+    @media (max-width: 36em) {
+        display: none!important;
+    }
+}
+
+.not-desktop {
+    @media (min-width: 36em) {
+        display: none!important;
     }
 }
