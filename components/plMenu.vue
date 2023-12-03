@@ -89,7 +89,8 @@
             },
             {
                 title: 'Notícias',
-                url: '/noticias',
+                url: ''
+                //url: '/noticias',
             },
             {
                 title: 'Benefícios',
