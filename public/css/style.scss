@@ -95,6 +95,9 @@
         text-decoration: underline;
         font-family: var(--display-font);
     }
+    .breadcrumbs span{
+        color: hsla(var(--breadcrumbs-hsl), 0.6);
+    }
     .breadcrumbs p.breadcrumbs__current {
         color: hsla(var(--breadcrumbs-hsl), 1);
     }
@@ -180,8 +183,9 @@
     }
 
     .button-list__button {
-        padding: 12px 24px;
+        padding: 0 24px;
         height: 40px;
+        line-height: 40px;
         border: none;
         text-decoration: none;
         font-weight: 600;
@@ -191,6 +195,12 @@
         color: #545454;
         background-color: #D4D4D4;
         display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1; /* number of lines to show */
+                line-clamp: 1;
+        -webkit-box-orient: vertical;
     }
 
 .grid-3 {
@@ -200,5 +210,15 @@
     @media screen and (max-width: 36em) {
         grid-template-columns: 1fr;
         
+    }
+}
+
+.blue-section {
+    background-color: #245383;
+    padding-block: 64px;
+    p {
+        font-size: 1.625en;
+        font-weight: 500;
+        color: white;
     }
 }

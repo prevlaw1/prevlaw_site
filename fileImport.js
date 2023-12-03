@@ -165,6 +165,47 @@ const generator = async () => {
       console.log("ERRO -> ", err);
     });
 
+    // BUILDING BENEFICIOS
+    const benDir = "./content/beneficios";
+    manageFolder(benDir);
+    let beneficios;
+    await axios
+      .get(`${server}/spaces/${space}/entries/?content_type=beneficios`, {
+        params: {
+          access_token:token
+        }
+      })
+      .then((ret) => {
+        console.log("CONECTADO COM BENEFICIOS");
+        beneficios = ret.data.items;
+        beneficios.forEach(async element => {
+          let fields = element.fields;
+          let author = await getEntry(fields.autor.sys.id);
+          let category = await getEntry(fields.categoria.sys.id);
+          let beneficio = {
+            slug: slugify(fields.titulo),
+            title: fields.titulo,
+            tagline: fields.tagline,
+            author: slugify(author.name),
+            date: fields.data,
+            cover: await getImage(fields.capa.sys.id),
+            category: slugify(category.titulo),
+            content: await fetchRichTextData(fields.conteudo),
+            atualizacao: element.sys.updatedAt,
+          }
+          fs.access(benDir, fs.constants.R_OK | fs.constants.W_OK, async (err) => {
+            if (err) {
+              console.log(err);
+            } else {
+              writeFile(benDir, beneficio);
+            }
+          });
+        });
+      })
+      .catch((err) => {
+        console.log("ERRO -> ", err);
+      });
+
     // BUILDING CARROSSEL HOME
     const reelDir = "./content/reel";
     manageFolder(reelDir);

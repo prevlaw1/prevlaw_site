@@ -17,7 +17,7 @@
     --prose-figure-vertical-space: 32px;
     --prose-list-indent: 32px;
     --prose-gap: 16px;
-    --heading-color: var(--primary-color);
+    --heading-color: hsla(0, 0%, 10%, 0.8);
     --font-color: var(--base-color-80);
   }
   
@@ -30,7 +30,30 @@
   .prose :deep(h3),
   .prose :deep(h4),
   .prose :deep(h5),
-  .prose :deep(h6) { color: var(--heading-color);}
+  .prose :deep(h6) { 
+    font-family: var(--body-font); 
+    color: var(--heading-color);
+  }
+  
+  
+  .prose :deep(h1) {
+    font-size: 1.75em;
+  }
+  .prose :deep(h2) {
+    font-size: 1.5em;
+  }
+  .prose :deep(h3) {
+    font-size: 1.25em;
+  }
+  .prose :deep(h4) {
+    font-size: 1.125em;
+  }
+  .prose :deep(h5) {
+    font-size: 1em;
+  }
+  .prose :deep(h6) {
+    font-size: 0.875em;
+  }
   
   /* Styles for .brow */
   .prose :deep(.brow) {
@@ -60,10 +83,11 @@
   
   
   /* Spacing for headings */
-  .prose :deep(h2) { margin-top:16px; }
-  .prose :deep(h3) { margin-top:16px; }
-  .prose :deep(h4) { margin-top:16px; }
-  .prose :deep(h5) { margin-top:16px; }
+  .prose :deep(h1),
+  .prose :deep(h2),
+  .prose :deep(h3),
+  .prose :deep(h4),
+  .prose :deep(h5) { margin-top:32px; }
   
   /* Spacing for headings with brow */
   .prose :deep(.brow + h2),
@@ -79,13 +103,6 @@
   .prose :deep(hr), /* Spacing for other horizontal ruler */
   .prose :deep(hr + *) { margin-top: var(--s2); }
   
-  
-  
-  /* Colors */
-  .prose :deep(h2) { --heading-color: var(--primary-color); }
-  .prose :deep(h3) { --heading-color: var(--primary-color); }
-  .prose :deep(h4) { --heading-color: var(--primary-color); }
-  .prose :deep(h5) { --heading-color: var(--primary-color); }
 
   .prose :deep(ul),
   .prose :deep(ol) {

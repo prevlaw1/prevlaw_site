@@ -3,10 +3,10 @@
         <div class="base-card">
             <div class="base-card__image" :style="`background-image:url(${props.cardData.image});`"></div>
             <div class="base-card__content">
-                <brow-date :brow="props.cardData.brow" :date="props.cardData.date" color="primary" v-if="props.cardData.brow || props.cardData.date"></brow-date>
+                <brow-date :brow="props.cardData.brow" :date="props.cardData.date" :color="props.tagColor" v-if="props.cardData.brow || props.cardData.date"></brow-date>
                 <nuxt-link :to="props.cardData.url" class="base-card__title">{{ props.cardData.title }}</nuxt-link>
                 <author-line :autor="props.cardData.autor" :autorImage="props.cardData.autorImage" v-if="props.cardData.autor || props.cardData.autorImage"></author-line>
-                <nuxt-link class="base-link" :to="props.cardData.url">Confira a publicação <span class="material-symbols-outlined">chevron_right</span></nuxt-link>
+                <nuxt-link class="base-link" :to="props.cardData.url">{{ linkText }} <span class="material-symbols-outlined">chevron_right</span></nuxt-link>
             </div>
         </div>
     </div>
@@ -26,6 +26,14 @@
         autor: 'Lorem Ipsum',
         autorImage: 'https://picsum.photos/200/300',
       },
+    },
+    tagColor: {
+        type: String,
+        default: 'primary',
+    },
+    linkText: {
+        type: String,
+        default: 'Confira a publicação',
     },
   });
 </script>

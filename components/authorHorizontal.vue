@@ -1,19 +1,18 @@
 <template>
     <div class="author-card">
-        <div class="author-card__bg"></div>
+        <div class="author-card__image" :style="`background-image:url(${props.autor.picture});`">
+            <a :href="props.autor.url" target="_blank" class="author-card__link">
+                <img src="/images/linkedin-negativo.svg" :alt="`LinkedIn de ${props.autor.name}`">
+            </a>
+        </div>
         <div class="author-card__content">
-            <p class="author-card__tempo">Colunista desde {{ props.autor.desde }}</p>
-            <div class="author-card__image" :style="`background-image:url(${props.autor.picture});`">
-                <a :href="props.autor.url" target="_blank" class="author-card__link">
-                    <img src="/images/linkedin-negativo.svg" :alt="`LinkedIn de ${props.autor.name}`">
-                </a>
-            </div>
             <p class="author-card__sobre">Sobre o autor desse conteúdo</p>
+            <p class="author-card__tempo">Colunista desde {{ props.autor.desde }}</p>
             <div class="author-card__info">
                 <p class="author-card__nome">{{ props.autor.name }}</p>
                 <p class="author-card__cargo">{{ props.autor.cargo }}</p>
             </div>
-                <nuxt-link class="base-link" to="#">Veja todos os artigos <span class="material-symbols-outlined">chevron_right</span></nuxt-link>
+                <nuxt-link class="base-link" to="#">Veja o perfil de Alfredo da Silva <span class="material-symbols-outlined">chevron_right</span></nuxt-link>
         </div>
     </div>
 </template>
@@ -38,9 +37,8 @@
 <style lang="scss" scoped>
     .author-card {
         display: flex;
-        flex-flow: column nowrap;
-        background-color: white;
-        border-radius: 4px;
+        flex-flow: row nowrap;
+        align-items: center;
     }
 
         .author-card__bg {
@@ -55,19 +53,15 @@
         .author-card__content {
             display: flex;
             flex-flow: column nowrap;
-            align-items: center;
             gap: 16px;
             padding: 24px;
             border-radius: 16px;
             position: relative;
             z-index: 1;
-            border-radius: 0 0 4px 4px;
-            margin-top: -140px;
         }
 
         .author-card__tempo {
             font-size: 0.75em;
-            color: white;
         }
 
         .author-card__image {
@@ -76,7 +70,7 @@
             border-radius: 50%;
             background-size: cover;
             background-position: center;
-            border: 8px solid white;
+            border: 8px solid #CDE6FF;
         }
 
         .author-card__sobre {
@@ -85,7 +79,6 @@
         }
 
         .author-card__info {
-            text-align: center;
             color: hsla(0, 0%, 0%, 0.9);
         }
 

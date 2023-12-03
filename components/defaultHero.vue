@@ -1,5 +1,5 @@
 <template>
-    <header class="hero" :style="`background-image:uel(${image})`">
+    <header class="hero | default-hero" :style="`background-image:url(${image})`">
       <slot></slot>
     </header>
 </template>
@@ -14,15 +14,15 @@
 </script>
 
 <style lang="scss" scoped>
-    .hero-reel__item {
+    .default-hero {
+        height: 280px;
+        min-height: auto;
+        background-position: center;
+        background-size: cover;
         position: relative;
-        width: 102vw;
-        height: 450px;
-        flex-shrink: 0;
-        padding-bottom: 132px;
+        padding-block: 110px 48px;
         display: flex;
-        flex-flow: row nowrap;
-        align-items: flex-end;
+        flex-flow: column nowrap;
         &::before {
             content: '';	
             position: absolute;
@@ -31,51 +31,40 @@
             right: 0;
             bottom: 0;
             z-index: 1;
-            background: linear-gradient(2.43deg, rgba(0, 0, 0, 0.8) 1.51%, rgba(40, 59, 99, 0) 59.09%, rgba(0, 0, 0, 0.8) 97.43%);
+            background: black;
+            opacity: 0.5;
+        }
+        &::after {
+            content: '';	
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            background: var(--base-gradient);
+            opacity: 0.3;
         }
     }
 
-    .hero-reel__image {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-position: center;
-        background-size: cover;
-        z-index: 0;
-    }
-
-    .hero-reel__content {
+    :deep(.default-hero__content) {
         position: relative;
         z-index: 2;
         display: flex;
         flex-flow: column nowrap;
-        gap: 22px;
+        gap: 24px;
+        flex-grow: 1;
+        justify-content: flex-end;
     }
 
-    .hero-reel__title {
-        font-family: var(--display-font);
-        font-weight: 500;
-        font-size: 1.5em;
-        text-decoration: none;
+    :deep(h1) {
+        font-family: var(--body-font);
+        font-weight: 300;
+        font-size: 2em;
         color: white;
-        max-width: 675px;
-        width: 100%;
-        p {
-            color: white;
-        }
     }
 
-    .hero-reel__position-indicators {
-        position: absolute;
-        left: auto;
-        right: auto;
-        bottom: 40px;
-        @media screen and (max-width: 36em) {
-          width: 100%;
-          display: flex;
-          justify-content: center;
-        }
+    :deep(.breadcrumbs) {
+        --breadcrumbs-hsl: 0, 0%, 100%;
     }
 </style>
