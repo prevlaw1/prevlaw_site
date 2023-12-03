@@ -247,6 +247,41 @@ const generator = async () => {
           console.log("ERRO -> ", err);
         });
 
+        // BUILDING TABELAS
+        const tbDir = "./content/tabelas";
+        manageFolder(tbDir);
+        let tabelas;
+        await axios
+          .get(`${server}/spaces/${space}/entries/?content_type=tabela`, {
+            params: {
+              access_token:token
+            }
+          })
+          .then(async (ret) => {
+            console.log("CONECTADO COM TABELAS");
+            tabelas = ret.data.items;
+            tabelas.forEach(async element => {
+              let fields = element.fields;
+              let tabela = {
+                slug: slugify(fields.titulo),
+                title: fields.titulo,
+                tagline: fields.tagline,
+                descricao: fields.descricao,
+                tabela: await fetchRichTextData(fields.tabela),
+              }
+              fs.access(tbDir, fs.constants.R_OK | fs.constants.W_OK, async (err) => {
+                if (err) {
+                  console.log(err);
+                } else {
+                  await writeFile(tbDir, tabela);
+                }
+              });
+            });
+          })
+          .catch((err) => {
+            console.log("ERRO -> ", err);
+          });
+
     // BUILDING CARROSSEL HOME
     const reelDir = "./content/reel";
     manageFolder(reelDir);

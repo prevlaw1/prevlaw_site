@@ -73,6 +73,10 @@
     }
 }
 
+.main-content {
+    padding: 64px 0 128px;
+}
+
 .default-title {
     font-weight: 500;
     font-family: var(--body-font);
@@ -90,6 +94,7 @@
 }
 
     .breadcrumbs a.breadcrumbs__link,
+    .breadcrumbs p.breadcrumbs__link,
     .breadcrumbs p.breadcrumbs__current {
         color: hsla(var(--breadcrumbs-hsl), 0.6);
         text-decoration: underline;

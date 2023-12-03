@@ -38,6 +38,7 @@
                         <nuxt-link class="base-link" to="#">Veja todas as categorias <span class="material-symbols-outlined">chevron_right</span></nuxt-link>
                     </div>
                     <form-newsletter></form-newsletter>
+                    <social-floater></social-floater>
                 </div>
             </div>
         </section>

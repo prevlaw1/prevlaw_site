@@ -35,6 +35,7 @@
                             </li>
                         </ul>
                     </div>
+                    <social-floater></social-floater>
                 </div>
             </div>
         </section>
