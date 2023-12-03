@@ -67,6 +67,9 @@
         flex-flow: row nowrap;
         gap: 32px;
         border-bottom: 1px solid hsl(0, 0%, 0%, 0.12);
+        @media screen and (max-width: 36em) {
+            flex-flow: column nowrap;
+        }
     }
 
         .intro__image {
@@ -76,6 +79,10 @@
             border-radius: 4px;
             background-size: cover;
             background-position: center;
+            @media screen and (max-width: 36em) {
+                height: 200px;
+                width: 100%;
+            }
         }
 
         .intro__info {

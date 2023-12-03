@@ -39,6 +39,9 @@
         display: flex;
         flex-flow: row nowrap;
         align-items: center;
+        @media screen and (max-width: 36em) {
+            flex-flow: column nowrap;
+        }
     }
 
         .author-card__bg {

@@ -9,7 +9,7 @@
                 <div class="breadcrumbs">
                     <nuxt-link to="/" class="breadcrumbs__link">Home</nuxt-link>
                     <span class="material-symbols-outlined">chevron_right</span>
-                    <nuxt-link to="#" class="breadcrumbs__link">{{ data.categoria.name }}</nuxt-link>
+                    <nuxt-link to="/beneficios" class="breadcrumbs__link">Benefícios</nuxt-link>
                     <span class="material-symbols-outlined">chevron_right</span>
                     <p class="breadcrumbs__current">{{ data.blog.title }}</p>
                 </div>
@@ -252,6 +252,9 @@
             flex-flow: row nowrap;
             justify-content: space-between;
             margin-bottom: 32px;
+            @media screen and (max-width: 36em) {
+                flex-flow: column nowrap;
+            }
         }
 
         .mais-autor__autor {

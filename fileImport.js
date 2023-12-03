@@ -29,7 +29,7 @@ const generator = async () => {
         access_token:token
       }
     })
-    .then((ret) => {
+    .then(async (ret) => {
       console.log("CONECTADO COM AUTHORS");
       authors = ret.data.items;
       authors.forEach(async element => {
@@ -47,7 +47,7 @@ const generator = async () => {
           if (err) {
             console.log(err);
           } else {
-            writeFile(authorDir, authorClean);
+            await writeFile(authorDir, authorClean);
           }
         });
       });
@@ -66,7 +66,7 @@ const generator = async () => {
           access_token:token
         }
       })
-      .then((ret) => {
+      .then(async (ret) => {
         console.log("CONECTADO COM SUBCATEGORIAS");
         sc = ret.data.items;
         sc.forEach(async element => {
@@ -81,7 +81,7 @@ const generator = async () => {
             if (err) {
               console.log(err);
             } else {
-              writeFile(scDir, subcategoria);
+              await writeFile(scDir, subcategoria);
             }
           });
         });
@@ -100,7 +100,7 @@ const generator = async () => {
             access_token:token
           }
         })
-        .then((ret) => {
+        .then(async (ret) => {
           console.log("CONECTADO COM CATEGORIAS");
           categories = ret.data.items;
           categories.forEach(async element => {
@@ -114,7 +114,7 @@ const generator = async () => {
               if (err) {
                 console.log(err);
               } else {
-                writeFile(catDir, categoria);
+                await writeFile(catDir, categoria);
               }
             });
           });
@@ -133,7 +133,7 @@ const generator = async () => {
         access_token:token
       }
     })
-    .then((ret) => {
+    .then(async (ret) => {
       console.log("CONECTADO COM PUBLICACOES");
       updates = ret.data.items;
       updates.forEach(async element => {
@@ -156,7 +156,7 @@ const generator = async () => {
           if (err) {
             console.log(err);
           } else {
-            writeFile(pubDir, update);
+            await writeFile(pubDir, update);
           }
         });
       });
@@ -175,7 +175,7 @@ const generator = async () => {
           access_token:token
         }
       })
-      .then((ret) => {
+      .then(async (ret) => {
         console.log("CONECTADO COM BENEFICIOS");
         beneficios = ret.data.items;
         beneficios.forEach(async element => {
@@ -197,7 +197,7 @@ const generator = async () => {
             if (err) {
               console.log(err);
             } else {
-              writeFile(benDir, beneficio);
+              await writeFile(benDir, beneficio);
             }
           });
         });
@@ -205,6 +205,47 @@ const generator = async () => {
       .catch((err) => {
         console.log("ERRO -> ", err);
       });
+
+      // BUILDING REVISOES
+      const rvDir = "./content/revisoes";
+      manageFolder(rvDir);
+      let revisoes;
+      await axios
+        .get(`${server}/spaces/${space}/entries/?content_type=revisao`, {
+          params: {
+            access_token:token
+          }
+        })
+        .then(async (ret) => {
+          console.log("CONECTADO COM REVISOES");
+          revisoes = ret.data.items;
+          revisoes.forEach(async element => {
+            let fields = element.fields;
+            let author = await getEntry(fields.autor.sys.id);
+            let category = await getEntry(fields.categoria.sys.id);
+            let revisao = {
+              slug: slugify(fields.titulo),
+              title: fields.titulo,
+              tagline: fields.tagline,
+              author: slugify(author.name),
+              date: fields.data,
+              cover: await getImage(fields.capa.sys.id),
+              category: slugify(category.titulo),
+              content: await fetchRichTextData(fields.conteudo),
+              atualizacao: element.sys.updatedAt,
+            }
+            fs.access(rvDir, fs.constants.R_OK | fs.constants.W_OK, async (err) => {
+              if (err) {
+                console.log(err);
+              } else {
+                await writeFile(rvDir, revisao);
+              }
+            });
+          });
+        })
+        .catch((err) => {
+          console.log("ERRO -> ", err);
+        });
 
     // BUILDING CARROSSEL HOME
     const reelDir = "./content/reel";
@@ -216,7 +257,7 @@ const generator = async () => {
           access_token:token
         }
       })
-      .then((ret) => {
+      .then(async (ret) => {
         console.log("CONECTADO COM CARROSSEL HOME");
         reel = ret.data.items;
         reel.forEach(async element => {
@@ -243,7 +284,7 @@ const generator = async () => {
             if (err) {
               console.log(err);
             } else {
-              writeFile(reelDir, item);
+              await writeFile(reelDir, item);
             }
           });
         });
@@ -262,7 +303,7 @@ const generator = async () => {
             access_token:token
           }
         })
-        .then((ret) => {
+        .then(async (ret) => {
           console.log("CONECTADO COM DESTAQUE 1");
           dtq1 = ret.data.items;
           dtq1[0].fields.conteudo.forEach(async element => {
@@ -276,7 +317,7 @@ const generator = async () => {
                 if (err) {
                   console.log(err);
                 } else {
-                  writeFile(dtq1Dir, item);
+                  await writeFile(dtq1Dir, item);
                 }
               });
             });
@@ -296,7 +337,7 @@ const generator = async () => {
             access_token:token
           }
         })
-        .then((ret) => {
+        .then(async (ret) => {
           console.log("CONECTADO COM DESTAQUE 2");
           dtq2 = ret.data.items;
           dtq2[0].fields.conteudo.forEach(async element => {
@@ -310,7 +351,7 @@ const generator = async () => {
                 if (err) {
                   console.log(err);
                 } else {
-                  writeFile(dtq2Dir, item);
+                  await writeFile(dtq2Dir, item);
                 }
               });
             });
@@ -330,7 +371,7 @@ const generator = async () => {
               access_token:token
             }
           })
-          .then((ret) => {
+          .then(async (ret) => {
             console.log("CONECTADO COM MAIS ACESSADAS");
             ma = ret.data.items;
             ma[0].fields.conteudo.forEach(async element => {
@@ -344,7 +385,7 @@ const generator = async () => {
                   if (err) {
                     console.log(err);
                   } else {
-                    writeFile(maDir, item);
+                    await writeFile(maDir, item);
                   }
                 });
               });
@@ -364,7 +405,7 @@ const generator = async () => {
                 access_token:token
               }
             })
-            .then((ret) => {
+            .then(async (ret) => {
               console.log("CONECTADO COM BANNER DESTAQUE");
               bd = ret.data.items;
               bd.forEach(async element => {
@@ -379,7 +420,7 @@ const generator = async () => {
                   if (err) {
                     console.log(err);
                   } else {
-                    writeFile(bdDir, banner);
+                    await writeFile(bdDir, banner);
                   }
                 });
               });
@@ -420,7 +461,7 @@ const getImage = async (id) => {
         access_token:token
       }
     })
-    .then((ret) => {
+    .then(async (ret) => {
       url= ret.data.fields.file.url
     })
     .catch((err) => {
@@ -437,7 +478,7 @@ const getEntry = async (id) => {
         access_token:token
       }
     })
-    .then((ret) => {
+    .then(async (ret) => {
       entry = ret.data.fields
     })
     .catch((err) => {
