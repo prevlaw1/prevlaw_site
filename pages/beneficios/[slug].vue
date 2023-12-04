@@ -52,6 +52,7 @@
 </template>
 
 <script setup>
+    import { useImg } from '@nuxt/image';
     const route = useRoute()
 
     const blogData = await queryContent('beneficios').where({

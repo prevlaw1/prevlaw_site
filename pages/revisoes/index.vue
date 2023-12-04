@@ -1,6 +1,6 @@
 <template>
     <section>
-        <default-hero image="/images/default-hero.jpg">
+        <default-hero image="/images/default-hero.webp">
             <div class="center | default-hero__content" size="wide">
                 <h1 class="default-hero__title">Revisões</h1>
                 <div class="breadcrumbs">

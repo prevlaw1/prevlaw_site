@@ -5,7 +5,7 @@
             <p class="author-card__tempo">Colunista desde {{ props.autor.desde }}</p>
             <div class="author-card__image" :style="`background-image:url(${props.autor.picture});`">
                 <a :href="props.autor.url" target="_blank" class="author-card__link">
-                    <img src="/images/linkedin-negativo.svg" :alt="`LinkedIn de ${props.autor.name}`">
+                    <NuxtImg format="webp" src="/images/linkedin-negativo.svg" :alt="`LinkedIn de ${props.autor.name}`" />
                 </a>
             </div>
             <p class="author-card__sobre">Sobre o autor desse conteúdo</p>

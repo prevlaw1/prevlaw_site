@@ -3,7 +3,7 @@
         <div class="center" size="wide">
             <nav class="main-menu | main-menu--desktop | not-mobile">
                 <nuxt-link to="/">
-                    <img src="/images/logo-horizontal.svg" alt="Prevlaw" class="main-menu__logo" />
+                    <NuxtImg format="webp" src="/images/logo-horizontal.svg" alt="Prevlaw" class="main-menu__logo" />
                 </nuxt-link>
                 <ul class="main-menu__list">
                     <li class="main-menu__item" v-for="item in data.nav" v-bind:key="item.title">
@@ -16,7 +16,7 @@
                     </li>
                     <li class="main-menu__item">
                         <a href="#" class="main-menu__search">
-                            <img src="/images/icon-lupa.svg" class="main-menu__trigger" alt="Buscar conteúdos">
+                            <NuxtImg format="webp" src="/images/icon-lupa.svg" class="main-menu__trigger" alt="Buscar conteúdos" />
                         </a>
                     </li>
                 </ul>
@@ -28,10 +28,10 @@
             <nav class="main-menu | main-menu--mobile | not-desktop" aria-hidden="true">
                 <div class="main-menu__actions">
                     <a href="#"  @click.prevent="abrirMenu">
-                        <img class="main-menu__trigger" src="/images/menu-trigger.svg" alt="Menu">
+                        <NuxtImg format="webp" class="main-menu__trigger" src="/images/menu-trigger.svg" alt="Menu" />
                     </a>
                     <nuxt-link to="/">
-                        <img src="/images/logo-horizontal.svg" alt="Prevlaw" class="main-menu__logo" />
+                        <NuxtImg format="webp" src="/images/logo-horizontal.svg" alt="Prevlaw" class="main-menu__logo" />
                     </nuxt-link>
                 </div>
                 <nuxt-link to="#" target="_blank" class="main-menu__link">Login</nuxt-link>
@@ -39,10 +39,10 @@
                     <div class="dialog__content">
                         <div class="dialog__title">
                             <nuxt-link to="/">
-                                <img src="/images/logo-horizontal.svg" alt="Prevlaw" class="main-menu__logo" />
+                                <NuxtImg format="webp" src="/images/logo-horizontal.svg" alt="Prevlaw" class="main-menu__logo" />
                             </nuxt-link>
                             <a href="#" @click.prevent="fecharMenu">
-                                <img class="main-menu__trigger" src="/images/close.svg" alt="Fechar menu">
+                                <NuxtImg format="webp" class="main-menu__trigger" src="/images/close.svg" alt="Fechar menu" />
                             </a>
                         </div>
                         <ul class="dialog__menu">
@@ -62,7 +62,7 @@
                             </li>
                             <li class="main-menu__item">
                                 <a href="#" class="main-menu__search">
-                                    <img src="/images/icon-lupa.svg" class="main-menu__trigger" alt="Buscar conteúdos">
+                                    <NuxtImg format="webp" src="/images/icon-lupa.svg" class="main-menu__trigger" alt="Buscar conteúdos" />
                                 </a>
                             </li>
                         </ul>

@@ -9,7 +9,7 @@
     const props = defineProps({
         image: {
             type: String,
-            default: 'Lorem Ipsum',
+            default: 'default-hero.webp',
         }
     });
 </script>

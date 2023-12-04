@@ -2,7 +2,7 @@
     <div class="author-card">
         <div class="author-card__image" :style="`background-image:url(${props.autor.picture});`">
             <a :href="props.autor.url" target="_blank" class="author-card__link">
-                <img src="/images/linkedin-negativo.svg" :alt="`LinkedIn de ${props.autor.name}`">
+                <NuxtImg format="webp" src="/images/linkedin-negativo.svg" :alt="`LinkedIn de ${props.autor.name}`">
             </a>
         </div>
         <div class="author-card__content">

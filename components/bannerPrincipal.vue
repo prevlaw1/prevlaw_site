@@ -1,7 +1,7 @@
 <template>
     <div class="center" size="wide">
         <a :href="bannerDestaque[0].url" target="_blank" class="banner-principal">
-            <img :src="bannerDestaque[0].imagem" :alt="bannerDestaque[0].titulo" class="banner-principal__image">
+            <NuxtImg format="webp" :src="bannerDestaque[0].imagem" :alt="bannerDestaque[0].titulo" class="banner-principal__image" />
         </a>
     </div>
 </template>

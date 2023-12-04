@@ -1,6 +1,6 @@
 <template>
     <section>
-        <default-hero image="/images/beneficios-hero.jpg">
+        <default-hero image="/images/beneficios-hero.webp">
             <div class="center | default-hero__content" size="wide">
                 <h1 class="default-hero__title">Benefícios Previdenciários</h1>
                 <div class="breadcrumbs">

@@ -587,7 +587,7 @@ const fetchRichTextData = async (richTextDocument) => {
     // Substituir cada correspondência pela string desejada
     const resultado = await htmlString.replaceAsync(regex, async (_, id) => {
       const imagemSrc = await getImage(id);
-      return `<img src="${imagemSrc}" />`;
+      return `<NuxtImg format="webp" src="${imagemSrc}" />`;
     });
 
     const regex2 = /entry\((\w+)\)/g;
