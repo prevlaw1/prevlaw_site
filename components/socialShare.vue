@@ -6,21 +6,21 @@
             :url="props.url"
             :title="props.title"
         >
-            <NuxtImg format="webp" src="/images/facebook.svg" alt="Compartilhe no Facebook" class="social-share__icon" />
+            <img format="webp" src="/images/facebook.svg" alt="Compartilhe no Facebook" class="social-share__icon" />
         </ShareNetwork>
         <ShareNetwork
             network="twitter"
             :url="props.url"
             :title="props.title"
         >
-            <NuxtImg format="webp" src="/images/twitter.svg" alt="Compartilhe no Twitter" class="social-share__icon" />
+            <img format="webp" src="/images/twitter.svg" alt="Compartilhe no Twitter" class="social-share__icon" />
         </ShareNetwork>
         <ShareNetwork
             network="linkedin"
             :url="props.url"
             :title="props.title"
         >
-            <NuxtImg format="webp" src="/images/linkedin.svg" alt="Compartilhe no Linkedin" class="social-share__icon" />
+            <img format="webp" src="/images/linkedin.svg" alt="Compartilhe no Linkedin" class="social-share__icon" />
         </ShareNetwork>
     </div>
 </template>

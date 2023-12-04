@@ -113,7 +113,7 @@
     }
 
         .intro__image {
-            background-image: url('/images/revisoes-desc.jpg');
+            background-image: url('/images/revisoes-desc.webp');
             width: 395px;
             flex-shrink: 0;
             border-radius: 4px;

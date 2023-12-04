@@ -1,7 +1,7 @@
 <template>
     <div class="socials">
         <a :href="i.url" target="_blank" class="socials__link" v-for="i in socials" v-bind:key="i.name">
-            <NuxtImg format="webp" :src="i.icon" :alt="i.name" class="socials__icon" :class="{'socials__icon--small': props.size=='small'}" />
+            <img format="webp" :src="i.icon" :alt="i.name" class="socials__icon" :class="{'socials__icon--small': props.size=='small'}" />
         </a>
     </div>
 </template>

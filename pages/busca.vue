@@ -23,7 +23,7 @@
             <div class="lista__resultados" v-else>
               <div class="lista__vazia">
                 <div class="lista__icon">
-                  <NuxtImg src="/images/alert.svg" alt="Aviso" format="webp" />
+                  <img src="/images/alert.webp" alt="Aviso" format="webp" />
                 </div>
                 <div>
                   <p class="lista__title">O termo buscado não trouxe nenhum resultado.</p>

@@ -2,7 +2,7 @@
     <footer class="footer">
         <div class="center | footer__content" size="wide">
             <nuxt-link to="/" class="footer__logo-link">
-                <NuxtImg format="webp" src="/images/logo-vertical.svg" alt="Prevlaw" class="footer-logo" />
+                <img format="webp" src="/images/logo-vertical.webp" alt="Prevlaw" class="footer-logo" />
             </nuxt-link>
             <div class="footer__column" v-for="c in nav" v-bind:key="c.title">
                 <h3 class="footer__title">{{ c.title }}</h3>
