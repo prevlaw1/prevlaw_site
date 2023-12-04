@@ -32,6 +32,8 @@
 import { ref, watch, onMounted } from 'vue';
 const categorias = await queryContent('categorias').find();
 const publicacoes = await queryContent('publicacoes').find();
+const revisoes = await queryContent('revisoes').find();
+const beneficios = await queryContent('beneficios').find();
 const reel = await queryContent('reel').find();
 
 const data = reactive({
@@ -45,10 +47,22 @@ let opcoes = { day: 'numeric', month: 'long', year: 'numeric' };
 // Criar um objeto Intl.DateTimeFormat com as opções
 let formatadorData = new Intl.DateTimeFormat('pt-BR', opcoes);
 
+function findPost(i) {
+    let post = publicacoes.find(p => p.slug === i.ref);
+    if(!post || post.length <= 0) {
+      post = beneficios.find(p => p.slug === i.ref);
+    }
+    if(!post || post.length <= 0) {
+      post = revisoes.find(p => p.slug === i.ref);
+    }
+    return post
+}
+
 reel.forEach(i => {
     let item = {}
     if (i.ref) {
-        const publicacao = publicacoes.find(p => p.slug === i.ref);
+        const publicacao = findPost(i);
+        console.log(publicacao)
         if(publicacao.date) {
             let dataObj = new Date(publicacao.date);
             item.date = formatadorData.format(dataObj);
@@ -57,7 +71,8 @@ reel.forEach(i => {
         item.title = i.title? i.title : publicacao.title;
         item.image = i.capa? i.capa : publicacao.cover;
         item.categoria = categorias.find(c => c.slug === publicacao.category).name;
-        item.url=`/noticias/${item.slug}`;
+        item.type = publicacao.type;
+        item.url=`/${item.type}/${item.slug}`;
     } else {
         item.slug = i.slug;
         item.title = i.title;

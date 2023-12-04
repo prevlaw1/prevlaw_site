@@ -5,7 +5,10 @@
       <div class="center | destaques" size="wide">
         <div class="destaque-meio">
           <h2 class="default-title | destaque-meio__title">Título da segmentação de posts</h2>
-          <base-card v-for="post in data.destaqueMeio" v-bind:key="post.slug" :cardData="post" />
+          <div v-for="post in data.destaqueMeio" v-bind:key="post.slug">
+            <base-card :cardData="post" v-if="post.type == 'noticias'" />
+            <base-card :cardData="post" tagColor="accent" linkText="Conheça o benefício" v-else  />
+          </div>
         </div>
         <div class="destaque-lateral">
           <alternate-card v-for="post in data.destaqueLateral" v-bind:key="post.slug" :cardData="post" ></alternate-card>
@@ -40,7 +43,10 @@
          <a href="#" class="base-link">Veja todos</a>
       </div>
       <div class="mais-acessadas__grid">
-        <base-card v-for="post in data.maisAcessadas" v-bind:key="post.slug" :cardData="post" />
+          <div v-for="post in data.maisAcessadas" v-bind:key="post.slug" >
+            <base-card :cardData="post" v-if="post.type == 'noticias'" />
+            <base-card :cardData="post" tagColor="accent" linkText="Conheça o benefício" v-else  />
+          </div>
       </div>
     </div>
     <pl-footer></pl-footer>
@@ -51,6 +57,8 @@
 const categorias = await queryContent('categorias').find();
 const autores = await queryContent('autores').find();
 const publicacoes = await queryContent('publicacoes').find();
+const beneficios = await queryContent('beneficios').find();
+const revisoes = await queryContent('revisoes').find();
 const destaqueMeio = await queryContent('destaque-meio').find();
 const destaqueLateral = await queryContent('destaque-lateral').find();
 const maisAcessadas = await queryContent('mais-acessadas').find();
@@ -68,9 +76,20 @@ let opcoes = { day: 'numeric', month: 'long', year: 'numeric' };
 // Criar um objeto Intl.DateTimeFormat com as opções
 let formatadorData = new Intl.DateTimeFormat('pt-BR', opcoes);
 
+function findPost(i) {
+    let post = publicacoes.find(p => p.slug === i.ref);
+    if(!post || post.length <= 0) {
+      post = beneficios.find(p => p.slug === i.ref);
+    }
+    if(!post || post.length <= 0) {
+      post = revisoes.find(p => p.slug === i.ref);
+    }
+    return post
+}
+
 function buildItem(i) {
     let item = {}
-    const publicacao = publicacoes.find(p => p.slug === i.ref);
+    const publicacao = findPost(i);
     const autor = autores.find(a => a.slug === publicacao.author);
     if(publicacao.date) {
         let dataObj = new Date(publicacao.date);
@@ -80,9 +99,10 @@ function buildItem(i) {
     item.title = i.title? i.title : publicacao.title;
     item.image = i.capa? i.capa : publicacao.cover;
     item.brow = categorias.find(c => c.slug === publicacao.category).name;
-    item.url=`/noticias/${item.slug}`;
+    item.url=`/${publicacao.type}/${item.slug}`;
     item.autor = autor.name;
     item.autorImage = autor.picture;
+    item.type = publicacao.type;
     return item;
 }
 

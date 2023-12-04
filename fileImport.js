@@ -151,6 +151,7 @@ const generator = async () => {
           category: slugify(category.titulo),
           subcategory: slugify(subcategory.titulo),
           content: await fetchRichTextData(fields.conteudo),
+          type: 'noticias'
         }
         fs.access(pubDir, fs.constants.R_OK | fs.constants.W_OK, async (err) => {
           if (err) {
@@ -192,6 +193,7 @@ const generator = async () => {
             category: slugify(category.titulo),
             content: await fetchRichTextData(fields.conteudo),
             atualizacao: element.sys.updatedAt,
+            type: 'beneficios'
           }
           fs.access(benDir, fs.constants.R_OK | fs.constants.W_OK, async (err) => {
             if (err) {
@@ -233,6 +235,7 @@ const generator = async () => {
               category: slugify(category.titulo),
               content: await fetchRichTextData(fields.conteudo),
               atualizacao: element.sys.updatedAt,
+              type: 'revisoes'
             }
             fs.access(rvDir, fs.constants.R_OK | fs.constants.W_OK, async (err) => {
               if (err) {
@@ -587,7 +590,7 @@ const fetchRichTextData = async (richTextDocument) => {
     // Substituir cada correspondência pela string desejada
     const resultado = await htmlString.replaceAsync(regex, async (_, id) => {
       const imagemSrc = await getImage(id);
-      return `<NuxtImg format="webp" src="${imagemSrc}" />`;
+      return `<img src="${imagemSrc}" />`;
     });
 
     const regex2 = /entry\((\w+)\)/g;

@@ -66,6 +66,10 @@
         font-weight: 300;
         font-size: 2em;
         color: white;
+        span {
+            color: white;
+            font-weight: 500;
+        }
     }
 
     :deep(.breadcrumbs) {

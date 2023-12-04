@@ -15,7 +15,7 @@
                         </ul>
                     </li>
                     <li class="main-menu__item">
-                        <a href="#" class="main-menu__search">
+                        <a href="#" class="main-menu__search" @click.prevent="abrirMenu('buscaDialog')">
                             <NuxtImg format="webp" src="/images/icon-lupa.svg" class="main-menu__trigger" alt="Buscar conteúdos" />
                         </a>
                     </li>
@@ -27,7 +27,7 @@
             </nav>
             <nav class="main-menu | main-menu--mobile | not-desktop" aria-hidden="true">
                 <div class="main-menu__actions">
-                    <a href="#"  @click.prevent="abrirMenu">
+                    <a href="#"  @click.prevent="abrirMenu('menuDialog')">
                         <NuxtImg format="webp" class="main-menu__trigger" src="/images/menu-trigger.svg" alt="Menu" />
                     </a>
                     <nuxt-link to="/">
@@ -41,7 +41,7 @@
                             <nuxt-link to="/">
                                 <NuxtImg format="webp" src="/images/logo-horizontal.svg" alt="Prevlaw" class="main-menu__logo" />
                             </nuxt-link>
-                            <a href="#" @click.prevent="fecharMenu">
+                            <a href="#" @click.prevent="fecharMenu('menuDialog')">
                                 <NuxtImg format="webp" class="main-menu__trigger" src="/images/close.svg" alt="Fechar menu" />
                             </a>
                         </div>
@@ -61,7 +61,7 @@
                                 <nuxt-link to="#" target="_blank" class="button button--secondary">Assine Agora</nuxt-link>
                             </li>
                             <li class="main-menu__item">
-                                <a href="#" class="main-menu__search">
+                                <a href="#" class="main-menu__search" @click.prevent="abrirMenu('buscaDialog')">
                                     <NuxtImg format="webp" src="/images/icon-lupa.svg" class="main-menu__trigger" alt="Buscar conteúdos" />
                                 </a>
                             </li>
@@ -70,10 +70,46 @@
                 </dialog>
             </nav>
         </div>
+        <dialog id="buscaDialog" class="dialog">
+            <div class="dialog__content">
+                <div class="dialog__title">
+                    <nuxt-link to="/">
+                        <NuxtImg format="webp" src="/images/logo-horizontal.svg" alt="Prevlaw" class="main-menu__logo" />
+                    </nuxt-link>
+                    <a href="#" @click.prevent="fecharMenu('buscaDialog')">
+                        <NuxtImg format="webp" class="main-menu__trigger" src="/images/close.svg" alt="Fechar menu" />
+                    </a>
+                </div>
+                <form action="/busca" class="busca-form">
+                    <label for="termo" class="busca-form__title">Como podemos de ajudar?</label>
+                    <input type="text" name="termo" id="termo" placeholder="Digite aqui o que você procura" />
+                    <div class="busca-form__line">
+                        <div class="busca-form__line-item">
+                            <input type="checkbox" name="tudo" id="tudo" v-model="tudo" />
+                            <label for="tudo">Todos os conteúdos do site</label>
+                        </div>
+                        <div class="busca-form__line-item">
+                            <input type="checkbox" name="noticias" id="noticias" v-model="noticias" />
+                            <label for="noticias">Notícias</label>
+                        </div>
+                        <div class="busca-form__line-item">
+                            <input type="checkbox" name="beneficios" id="beneficios" v-model="beneficios" />
+                            <label for="beneficios">Benefícios</label>
+                        </div>
+                        <div class="busca-form__line-item">
+                            <input type="checkbox" name="revisoes" id="revisoes" v-model="revisoes" />
+                            <label for="revisoes">Revisões</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="button button--primary">Buscar</button>
+                </form>
+            </div>
+        </dialog>
     </section>
 </template>
 
 <script setup>
+    import { ref, watch } from 'vue';
     const tabelas = await queryContent('tabelas').find();
     const data = reactive({
         nav: [
@@ -116,15 +152,24 @@
         data.nav[5].submenu.push(item);
     });
 
-    const abrirMenu = () => {
-        const dialog = document.getElementById('menuDialog');
+    const abrirMenu = (id) => {
+        let dialog = document.getElementById(id);
         dialog.showModal();
     }
 
-    const fecharMenu = () => {
-        const dialog = document.getElementById('menuDialog');
+    const fecharMenu = (id) => {
+        let dialog = document.getElementById(id);
         dialog.close();
     }
+
+    const tudo = ref(true);
+    const noticias = ref(false);
+    const beneficios = ref(false);
+    const revisoes = ref(false);
+
+    watch([noticias, beneficios, revisoes], ([newNoticias, newBeneficios, newRevisoes]) => {
+        tudo.value = !newNoticias && !newBeneficios && !newRevisoes;
+    });
 </script>
 
 <style lang="scss" scoped>
@@ -233,6 +278,9 @@
         .dialog::backdrop {
             background: hsla(210, 100%, 23%, 0.85);
             backdrop-filter: blur(5px);
+            @media (min-width: 36em) {
+                background: hsla(210, 100%, 10%, 0.8)
+            }
         }
 
         .dialog__content {
@@ -253,4 +301,43 @@
             text-align: center;
         }
 
+    .busca-form {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        max-width: 640px;
+        width: 90%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 24px;
+        align-items: flex-start;
+        input[type="text"] {
+            padding: 24px;
+            width: 100%;
+        }
+        input[type="checkbox"] {
+            margin-right: 8px;
+        }
+        label {
+            color: white;
+            font-size: 0.875em;
+        }
+    }
+
+        .busca-form__title {
+            color: white;
+            font-size: 1.375em;
+            font-weight: 500;
+        }
+
+        .busca-form__line {
+            display: flex;
+            flex-flow: row nowrap;
+            gap: 32px;
+            align-items: center;
+            @media (max-width: 36em) {
+                flex-flow: row wrap;
+            }
+        }
 </style>
