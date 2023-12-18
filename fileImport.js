@@ -140,7 +140,6 @@ const generator = async () => {
         let fields = element.fields;
         let author = await getEntry(fields.autor.sys.id);
         let category = await getEntry(fields.categoria.sys.id);
-        let subcategory = await getEntry(fields.subcategoria.sys.id);
         let update = {
           slug: slugify(fields.titulo),
           title: fields.titulo,
@@ -149,7 +148,6 @@ const generator = async () => {
           date: fields.data,
           cover: await getImage(fields.capa.sys.id),
           category: slugify(category.titulo),
-          subcategory: slugify(subcategory.titulo),
           content: await fetchRichTextData(fields.conteudo),
           type: 'noticias'
         }

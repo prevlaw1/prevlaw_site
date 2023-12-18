@@ -184,9 +184,10 @@
 
         .main-menu__logo {
             height: 40px;
+            width: auto;
             @media (max-width: 36em) {
                 height: 24px;
-                
+                width: auto;
             }
         }
 

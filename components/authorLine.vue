@@ -47,7 +47,7 @@
             height: 32px;
             border-radius: 50%;
             background-size: cover;
-            background-position: center;
+            background-position: center top;
         }
 
         .author__name {
