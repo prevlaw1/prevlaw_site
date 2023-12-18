@@ -72,7 +72,7 @@
             width: 160px;
             border-radius: 50%;
             background-size: cover;
-            background-position: center;
+            background-position: center top;
             border: 8px solid #CDE6FF;
         }
 

@@ -12,7 +12,7 @@
 /* Fallback vertical rhythm */
 .prose { 
     --space: 16px; 
-    --prose-vertical-space: 8px;
+    --prose-vertical-space: 16px;
     --prose-caption-font-style: italic;
     --prose-figure-vertical-space: 32px;
     --prose-list-indent: 32px;
