@@ -2,13 +2,18 @@
   <section>
         <default-hero image="/images/default-hero.webp">
             <div class="center | default-hero__content" size="wide">
-                <h1 class="default-hero__title">Você buscou por "<span>{{ route.query.termo }}</span>"</h1>
+                <h1 class="default-hero__title" v-if="route.query.categoria">Você buscou por "<span>{{ categoriaName }}</span>"</h1>
+                <h1 class="default-hero__title" v-if="route.query.autor">Você buscou por "<span>{{ autorName }}</span>"</h1>
+                <h1 class="default-hero__title" v-else-if="route.query.termo">Você buscou por "<span>{{ route.query.termo }}</span>"</h1>
+                <h1 class="default-hero__title" v-else>Busca</h1>
                 <div class="breadcrumbs">
                     <nuxt-link to="/" class="breadcrumbs__link">Home</nuxt-link>
                     <span class="material-symbols-outlined">chevron_right</span>
                     <p class="breadcrumbs__link">Busca</p>
-                    <span class="material-symbols-outlined">chevron_right</span>
-                    <p class="breadcrumbs__current">"{{ route.query.termo }}"</p>
+                    <span class="material-symbols-outlined" v-if="route.query.categoria || route.query.autor || route.query.termo">chevron_right</span>
+                    <p class="breadcrumbs__current" v-if="route.query.categoria">"{{ categoriaName }}"</p>
+                    <p class="breadcrumbs__current" v-if="route.query.autor">"{{ autorName }}"</p>
+                    <p class="breadcrumbs__current" v-else-if="route.query.termo">"{{ route.query.termo }}"</p>
                 </div>
             </div>
         </default-hero>
@@ -45,13 +50,37 @@
 
 <script setup>
     import _ from 'lodash';
+    const route = useRoute()
+    let publicacoes = [];
+    let revisoes = [];
+    let beneficios = [];
+    const publicacoesAll = await queryContent('publicacoes').find();
+    const beneficiosAll = await queryContent('beneficios').find();
+    const revisoesAll = await queryContent('revisoes').find();
+    let categoriaName = '';
+    let autorName = '';
+    if(route.query && route.query.categoria) {
+      publicacoes = await queryContent('publicacoes').where({category: route.query.categoria}).find();
+      beneficios = await queryContent('beneficios').where({category: route.query.categoria}).find();
+      revisoes = await queryContent('revisoes').where({category: route.query.categoria}).find();
+    } else if (route.query && route.query.autor) {
+      publicacoes = await queryContent('publicacoes').where({author: route.query.autor}).find();
+      beneficios = await queryContent('beneficios').where({author: route.query.autor}).find();
+      revisoes = await queryContent('revisoes').where({author: route.query.autor}).find();
+    } else {
+      publicacoes = publicacoesAll;
+      beneficios = beneficiosAll;
+      revisoes = revisoesAll;
+    }
     const categorias = await queryContent('categorias').find();
     const autores = await queryContent('autores').find();
-    const publicacoes = await queryContent('publicacoes').find();
-    const beneficios = await queryContent('beneficios').find();
-    const revisoes = await queryContent('revisoes').find();
     const maisAcessadas = await queryContent('mais-acessadas').find();
-    const route = useRoute()
+    if(route.query && route.query.categoria) {
+      categoriaName = categorias.find(c => c.slug === route.query.categoria).name;
+    }
+    if(route.query && route.query.autor) {
+      autorName = autores.find(c => c.slug === route.query.autor).name;
+    }
 
     const data = reactive({
       lista: [],
@@ -66,12 +95,12 @@
     let formatadorData = new Intl.DateTimeFormat('pt-BR', opcoes);
 
     function findPost(i) {
-        let post = publicacoes.find(p => p.slug === i.ref);
+        let post = publicacoesAll.find(p => p.slug === i.ref);
         if(!post || post.length <= 0) {
-          post = beneficios.find(p => p.slug === i.ref);
+          post = beneficiosAll.find(p => p.slug === i.ref);
         }
         if(!post || post.length <= 0) {
-          post = revisoes.find(p => p.slug === i.ref);
+          post = revisoesAll.find(p => p.slug === i.ref);
         }
         return post
     }
@@ -94,7 +123,7 @@
         item.atualizado = publicacao.atualizacao? publicacao.atualizacao: publicacao.date;
         return item;
     }
-
+    
     if(!route.query || (route.query.tudo || route.query.noticias)){
       publicacoes.forEach(element => {
         data.lista.push(buildItem(element));
@@ -112,6 +141,7 @@
         data.lista.push(buildItem(element));
       });
     }
+
     
     data.lista.sort(function(a, b) {
       var dateA = new Date(a.atualizado);

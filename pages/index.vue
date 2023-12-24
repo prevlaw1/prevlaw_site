@@ -19,9 +19,9 @@
       <h2 class="default-title | categorias__title">Navegue por categoria</h2>
       <div class="reel | cat-reel">
         <div class="cat-reel__item | cat-reel__item" v-for="categoria in categorias" v-bind:key="categoria.slug">
-          <a href="#" class="cat-reel__card" :style="`background-image:url(${categoria.capa})`">
+          <nuxt-link :to="`/busca?tudo=on&categoria=${categoria.slug}`" class="cat-reel__card" :style="`background-image:url(${categoria.capa})`">
             <h3 class="cat-reel__title">{{ categoria.name }}</h3>
-          </a>
+          </nuxt-link>
         </div>
       </div>
       <div class="reel__position-indicators">
@@ -40,7 +40,7 @@
     <div class="center | mais-acessadas" size="wide">
       <div class="mais-acessadas__line">
          <h2 class="default-title | categorias__title">Os conteúdos mais acessados</h2>
-         <a href="#" class="base-link">Veja todos</a>
+         <a :to="`/busca?tudo=on`" class="base-link">Veja todos</a>
       </div>
       <div class="mais-acessadas__grid">
           <div v-for="post in data.maisAcessadas" v-bind:key="post.slug" >

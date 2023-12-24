@@ -125,7 +125,7 @@
             },
             {
                 title: 'Notícias',
-                url: ''
+                url: '/busca?noticias=true'
                 //url: '/noticias',
             },
             {

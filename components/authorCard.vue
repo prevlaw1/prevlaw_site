@@ -13,7 +13,7 @@
                 <p class="author-card__nome">{{ props.autor.name }}</p>
                 <p class="author-card__cargo">{{ props.autor.cargo }}</p>
             </div>
-                <nuxt-link class="base-link" to="#">Veja todos os artigos <span class="material-symbols-outlined">chevron_right</span></nuxt-link>
+                <nuxt-link class="base-link" :to="`/busca?tudo=on&autor=${props.autor.slug}`">Veja todos os artigos <span class="material-symbols-outlined">chevron_right</span></nuxt-link>
         </div>
     </div>
 </template>

@@ -11,7 +11,7 @@
                 <div class="breadcrumbs">
                     <nuxt-link to="/" class="breadcrumbs__link">Home</nuxt-link>
                     <span class="material-symbols-outlined">chevron_right</span>
-                    <nuxt-link to="#" class="breadcrumbs__link">{{ data.categoria.name }}</nuxt-link>
+                    <nuxt-link :to="`/busca?tudo=on&categoria=${data.categoria.slug}`" class="breadcrumbs__link">{{ data.categoria.name }}</nuxt-link>
                     <span class="material-symbols-outlined">chevron_right</span>
                     <p class="breadcrumbs__current">{{ data.blog.title }}</p>
                 </div>
@@ -33,10 +33,9 @@
                         <h3 class="h4">Navegue por categoria</h3>
                         <ul class="button-list">
                             <li class="button-list__item" v-for="c in categorias" v-bind:key="c.slug">
-                                <a href="#" class="button-list__button">{{ c.name }}</a>
+                                <nuxt-link :to="`/busca?tudo=on&categoria=${c.slug}`" class="button-list__button">{{ c.name }}</nuxt-link>
                             </li>
                         </ul>
-                        <nuxt-link class="base-link" to="#">Veja todas as categorias <span class="material-symbols-outlined">chevron_right</span></nuxt-link>
                     </div>
                     <form-newsletter></form-newsletter>
                     <social-floater></social-floater>
@@ -50,7 +49,7 @@
                         <div class="mais-autor__image" :style="`background-image:url(${data.autor.picture});`"></div>
                         <h3 class="mais-autor__name | default-subtitle">Mais conteúdos escritos por {{ data.autor.name }}</h3>
                     </div>
-                    <nuxt-link class="base-link" to="#">Veja todos os artigos <span class="material-symbols-outlined">chevron_right</span></nuxt-link>
+                    <nuxt-link class="base-link" :to="`/busca?tudo=on&autor=${data.autor.slug}`">Veja todos os artigos <span class="material-symbols-outlined">chevron_right</span></nuxt-link>
                 </div>
                 <div class="mais-autor__list | grid-3">
                     <base-card v-for="post in data.otherAutor" v-bind:key="post.slug" :cardData="post" />
