@@ -180,7 +180,7 @@ onMounted(() => {
         left: 0;
         right: 0;
         bottom: 0;
-        background-position: center;
+        background-position: center top;
         background-size: cover;
         z-index: 0;
     }
