@@ -40,7 +40,7 @@
     <div class="center | mais-acessadas" size="wide">
       <div class="mais-acessadas__line">
          <h2 class="default-title | categorias__title">Os conteúdos mais acessados</h2>
-         <a :to="`/busca?tudo=on`" class="base-link">Veja todos</a>
+         <nuxt-link :to="`/busca?tudo=on`" class="base-link">Veja todos</nuxt-link>
       </div>
       <div class="mais-acessadas__grid">
           <div v-for="post in data.maisAcessadas" v-bind:key="post.slug" >
@@ -96,7 +96,7 @@ function buildItem(i) {
         item.date = formatadorData.format(dataObj);
     }
     item.slug = publicacao.slug;
-    item.title = i.title? i.title : publicacao.title;
+    item.title = publicacao.title;
     item.image = i.capa? i.capa : publicacao.cover;
     item.brow = categorias.find(c => c.slug === publicacao.category).name;
     item.url=`/${publicacao.type}/${item.slug}`;

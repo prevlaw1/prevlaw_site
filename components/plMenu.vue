@@ -20,10 +20,10 @@
                         </a>
                     </li>
                 </ul>
-                <div class="main-menu__actions">
+                <!--<div class="main-menu__actions">
                     <nuxt-link to="#" target="_blank" class="main-menu__link">Login</nuxt-link>
                     <nuxt-link to="#" target="_blank" class="button button--secondary">Assine Agora</nuxt-link>
-                </div>
+                </div>-->
             </nav>
             <nav class="main-menu | main-menu--mobile | not-desktop" aria-hidden="true">
                 <div class="main-menu__actions">
@@ -54,12 +54,12 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="main-menu__item">
+                            <!--<li class="main-menu__item">
                                 <nuxt-link to="#" target="_blank" class="main-menu__link">Login</nuxt-link>
                             </li>
                             <li class="main-menu__item">
                                 <nuxt-link to="#" target="_blank" class="button button--secondary">Assine Agora</nuxt-link>
-                            </li>
+                            </li>-->
                             <li class="main-menu__item">
                                 <a href="#" class="main-menu__search" @click.prevent="abrirMenu('buscaDialog')">
                                     <img format="webp" src="/images/icon-lupa.svg" class="main-menu__trigger" alt="Buscar conteúdos" />
@@ -113,7 +113,7 @@
     const tabelas = await queryContent('tabelas').find();
     const data = reactive({
         nav: [
-            {
+            /*{
                 title: 'Produto',
                 url: '#',
                 target: "_blank"
@@ -122,7 +122,7 @@
                 title: 'Assine',
                 url: '#',
                 target: "_blank"
-            },
+            },*/
             {
                 title: 'Notícias',
                 url: '/busca?noticias=true'
@@ -149,7 +149,7 @@
             title: element.title,
             url: `/ferramentas/${element.slug}`
         };
-        data.nav[5].submenu.push(item);
+        data.nav[3].submenu.push(item);
     });
 
     const abrirMenu = (id) => {

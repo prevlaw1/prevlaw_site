@@ -21,28 +21,23 @@
     const socials = [
         {
             name: 'LinkedIn',
-            url: 'https://www.linkedin.com/company/prevlaw',
+            url: 'https://www.linkedin.com/company/prevlaw/',
             icon: props.negativo?'/images/linkedin-negativo.svg':'/images/linkedin.svg',
         },
         {
             name: 'Youtube',
-            url: 'https://twitter.com/prevlaw',
+            url: 'https://www.youtube.com/@prevlaw',
             icon: props.negativo?'/images/youtube-negativo.svg':'/images/youtube.svg',
         },
         {
             name: 'Facebook',
-            url: 'https://www.facebook.com/prevlaw',
+            url: 'https://www.facebook.com/prevlawoficial',
             icon: props.negativo?'/images/facebook-negativo.svg':'/images/facebook.svg',
         },
         {
             name: 'Instagram',
-            url: 'https://www.instagram.com/prevlaw',
+            url: 'https://www.instagram.com/prev.law/',
             icon: props.negativo?'/images/instagram-negativo.svg':'/images/instagram.svg',
-        },
-        {
-            name: 'RSS',
-            url: 'https://www.instagram.com/prevlaw',
-            icon: props.negativo?'/images/rss-negativo.svg':'/images/rss.svg',
         }
     ]
 </script>
