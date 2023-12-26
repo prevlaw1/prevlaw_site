@@ -15,7 +15,7 @@
                 <p>Os benefícios previdenciários e o benefício assistencial são benefícios pagos pelo Instituto Nacional do Seguro Social – INSS, a quem cumpre os requisitos impostos pela Previdência Social.</p>
             </div>
         </section>
-        <section>
+        <!--<section>
             <div class="center | intro" size="wide">
                 <div class="intro__image"></div>
                 <div class="intro__info">
@@ -24,7 +24,7 @@
                     <p>Os benefícios e códigos abaixo descritos se referem às regras anteriores a Reforma da Previdência (<a href="https://www.planalto.gov.br/ccivil_03/constituicao/emendas/emc/emc103.htm" target="_blank">EC 103/2019</a>), tendo em vista a sua recente promulgação e o pouco tempo hábil para que o INSS definisse novos códigos e nomenclaturas de benefícios. De qualquer forma, em cada uma das páginas de benefícios consta um tópico específico de alterações promovidas pela Reforma da Previdência.</p>
                 </div>
             </div>
-        </section>
+        </section>-->
         <section>
             <div class="center | beneficios" size="wide">
                 <div class="beneficios__list | grid-3">
@@ -96,6 +96,7 @@
         }
 
     .beneficios {
+        padding-top: 64px;
         padding-bottom: 128px;
     }
 </style>

@@ -15,7 +15,7 @@
                 <p>Aqui precisamos de uma descrição de destaque da página para melhorar a otimização nas buscas com até duas linhas, explicando um pouco sobre o conteúdo que virá abaixo.</p>
             </div>
         </section>
-        <section>
+        <!--<section>
             <div class="center | intro" size="wide">
                 <div class="intro__image"></div>
                 <div class="intro__info">
@@ -60,7 +60,7 @@
                     <p>Exemplo: o aposentado que teve seu pedido de aposentadoria aprovado em 2013 e passou a receber a partir desse ano, terá até 2023 para revisar sua aposentadoria. Para saber se tem direito a revisão de aposentadoria, é possível entrar em contato com a Previdência Social ou procurar um advogado especializado em Direito Previdenciário.</p>
                 </div>
             </div>
-        </section>
+        </section>-->
         <section>
             <div class="center | revisoes" size="wide">
                 <div class="revisoes__list | grid-3">
@@ -139,6 +139,7 @@
         }
 
     .revisoes {
+        padding-top: 32px;
         padding-bottom: 128px;
     }
 </style>
