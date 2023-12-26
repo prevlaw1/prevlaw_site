@@ -175,6 +175,13 @@
   maisAcessadas.forEach(i => {
       data.maisAcessadas.push(buildItem(findPost(i)));
   });
+    
+  useHead({
+      title: 'Prevlaw | Busca',
+      meta: [
+        { property: 'og:title',  content: 'Prevlaw | Busca'},
+      ]
+  })
 </script>
 
 <style lang="scss" scoped>

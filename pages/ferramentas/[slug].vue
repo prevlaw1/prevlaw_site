@@ -40,6 +40,16 @@
         post: tabelas
     });
 
+useHead({
+  title: `Prevlaw | ${tabelas.title}`,
+  meta: [
+    { property: 'og:title',  content: `Prevlaw | ${tabelas.title}`},
+    { name: "description", content: tabelas.tagline },
+    { property: 'og:description',  content: tabelas.tagline},
+    { name: 'twitter:description', content: tabelas.tagline }
+  ]
+})
+
 
 </script>
 

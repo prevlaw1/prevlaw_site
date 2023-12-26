@@ -92,6 +92,16 @@
     revisoes.forEach(element => {
         data.revisoes.push(buildItem(element));
     });
+    
+  useHead({
+      title: 'Prevlaw | Revisões',
+      meta: [
+        { property: 'og:title',  content: 'Prevlaw | Revisões'},
+        { name: "description", content: "A Revisão de Aposentadoria é uma solicitação que pode ser feita pelo segurado do INSS para corrigir possíveis erros na concessão de seu benefício. Esses erros podem estar relacionados a diversas questões, como tempo de contribuição, valor do salário-base e cálculo do benefício, entre outros fatores." },
+        { property: 'og:description',  content: 'A Revisão de Aposentadoria é uma solicitação que pode ser feita pelo segurado do INSS para corrigir possíveis erros na concessão de seu benefício. Esses erros podem estar relacionados a diversas questões, como tempo de contribuição, valor do salário-base e cálculo do benefício, entre outros fatores.'},
+        { name: 'twitter:description', content: 'A Revisão de Aposentadoria é uma solicitação que pode ser feita pelo segurado do INSS para corrigir possíveis erros na concessão de seu benefício. Esses erros podem estar relacionados a diversas questões, como tempo de contribuição, valor do salário-base e cálculo do benefício, entre outros fatores.' }
+      ]
+  })
 
 </script>
 

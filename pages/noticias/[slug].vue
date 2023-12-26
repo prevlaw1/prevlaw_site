@@ -127,6 +127,18 @@
     relatedBlogData.forEach(i => {
         data.otherCat.push(buildItem(i));
     });
+
+  useHead({
+      title: `Prevlaw | ${blogData.title}`,
+      meta: [
+        { property: 'og:title',  content: `Prevlaw | ${blogData.title}`},
+        { name: "description", content: blogData.tagline },
+        { property: 'og:description',  content: blogData.tagline},
+        { property: 'og:image',  content: blogData.cover},
+        { name: 'twitter:image',  content: blogData.cover},
+        { name: 'twitter:description', content: blogData.tagline }
+      ]
+  })
     
 </script>
 

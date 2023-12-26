@@ -101,7 +101,7 @@
   .prose :deep(blockquote), /* Spacing for blockquote */
   .prose :deep(blockquote + *),  /* Spacing for blockquote */
   .prose :deep(hr), /* Spacing for other horizontal ruler */
-  .prose :deep(hr + *) { margin-top: var(--s2); }
+  .prose :deep(hr + *) { margin-top: var(--prose-vertical-space); }
   
 
   .prose :deep(ul),

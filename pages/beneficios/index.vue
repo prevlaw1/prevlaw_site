@@ -56,6 +56,16 @@
     beneficios.forEach(element => {
         data.beneficios.push(buildItem(element));
     });
+    
+  useHead({
+      title: 'Prevlaw | Benefícios',
+      meta: [
+        { property: 'og:title',  content: 'Prevlaw | Benefícios'},
+        { name: "description", content: "Os benefícios previdenciários e o benefício assistencial são benefícios pagos pelo Instituto Nacional do Seguro Social – INSS, a quem cumpre os requisitos impostos pela Previdência Social." },
+        { property: 'og:description',  content: 'Os benefícios previdenciários e o benefício assistencial são benefícios pagos pelo Instituto Nacional do Seguro Social – INSS, a quem cumpre os requisitos impostos pela Previdência Social.'},
+        { name: 'twitter:description', content: 'Os benefícios previdenciários e o benefício assistencial são benefícios pagos pelo Instituto Nacional do Seguro Social – INSS, a quem cumpre os requisitos impostos pela Previdência Social.' }
+      ]
+  })
 
 </script>
 

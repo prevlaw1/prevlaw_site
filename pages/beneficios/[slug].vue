@@ -118,6 +118,15 @@
         return item;
     }
     
+  useHead({
+      title: `Prevlaw | ${blogData.title}`,
+      meta: [
+        { property: 'og:title',  content: `Prevlaw | ${blogData.title}`},
+        { property: 'og:image',  content: blogData.cover},
+        { name: 'twitter:image',  content: blogData.cover},
+      ]
+  })
+    
 </script>
 
 <style lang="scss" scoped>
