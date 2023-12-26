@@ -12,7 +12,7 @@
         </default-hero>
         <section class="tagline | blue-section">
             <div class="center" size="wide">
-                <p>Aqui precisamos de uma descrição de destaque da página para melhorar a otimização nas buscas com até duas linhas, explicando um pouco sobre o conteúdo que virá abaixo.</p>
+                <p>A Revisão de Aposentadoria é uma solicitação que pode ser feita pelo segurado do INSS para corrigir possíveis erros na concessão de seu benefício. Esses erros podem estar relacionados a diversas questões, como tempo de contribuição, valor do salário-base e cálculo do benefício, entre outros fatores.</p>
             </div>
         </section>
         <!--<section>
