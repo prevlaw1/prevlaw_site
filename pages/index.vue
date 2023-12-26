@@ -4,7 +4,7 @@
     <section>
       <div class="center | destaques" size="wide">
         <div class="destaque-meio">
-          <h2 class="default-title | destaque-meio__title">Título da segmentação de posts</h2>
+          <h2 class="default-title | destaque-meio__title">Últimos posts</h2>
           <div v-for="post in data.destaqueMeio" v-bind:key="post.slug">
             <base-card :cardData="post" v-if="post.type == 'noticias'" />
             <base-card :cardData="post" tagColor="accent" linkText="Conheça o benefício" v-else  />
