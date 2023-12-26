@@ -19,7 +19,7 @@
 
 <script setup>
     const nav = [
-        {
+        /*{
             title: 'Advogados',
             items: [
                 {
@@ -118,11 +118,11 @@
                     target: "_blank"
                 }
             ]
-        },
+        },*/
         {
-            title: 'Institucional',
+            title: 'Redes sociais',
             items: [
-                {
+                /*{
                     title: 'História',
                     url: '#',
                     target: "_blank"
@@ -136,7 +136,7 @@
                     title: 'Ajuda',
                     url: '#',
                     target: "_blank"
-                }
+                }*/
             ],
             socials: true
         }
