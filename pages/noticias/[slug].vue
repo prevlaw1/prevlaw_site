@@ -43,7 +43,7 @@
             </div>
         </section>
         <section class="extra-content">
-            <div class="center | mais-autor" size="wide">
+            <div class="center | mais-autor" size="wide" v-if="data.otherAutor && data.otherAutor.length >= 1">
                 <div class="mais-autor__title">
                     <div class="mais-autor__autor">
                         <div class="mais-autor__image" :style="`background-image:url(${data.autor.picture});`"></div>
@@ -72,9 +72,6 @@
     const blogData = await queryContent('publicacoes').where({
         slug: route.params.slug
     }).findOne();
-    const autor = await queryContent('autores').where({
-        slug: blogData.author
-    }).findOne();
     const categoria = await queryContent('categorias').where({
         slug: blogData.category
     }).findOne();
@@ -87,6 +84,8 @@
         slug: { $ne: blogData.slug }
     }).limit(3).find();
     const categorias = await queryContent('categorias').limit(6).find();
+    const autores = await queryContent('autores').find();
+    const autor = autores.find(a => a.slug === blogData.author);
 
     const data = reactive({
         blog: blogData,
@@ -105,6 +104,7 @@
     data.blog.date = formatadorData.format(dataObj);
 
     function buildItem(publicacao) {
+        let autor = autores.find(a => a.slug === publicacao.author);
         let item = {}
         if(publicacao.date) {
             let dataObj = new Date(publicacao.date);
@@ -115,8 +115,8 @@
         item.image = publicacao.cover;
         item.brow = categorias.find(c => c.slug === publicacao.category).name;
         item.url=`/noticias/${item.slug}`;
-        item.autor = data.autor.name;
-        item.autorImage = data.autor.picture;
+        item.autor = autor.name;
+        item.autorImage = autor.picture;
         return item;
     }
 
@@ -150,8 +150,10 @@
         position: relative;
         display: flex;
         flex-flow: column nowrap;
-        @media screen and (max-width: 36em) {
-            padding: 24px 0;
+        @media (max-width: 36em) {
+            min-height: 450px;
+            height: auto;
+            padding-top: 120px;
         }
         * {
             color: white;

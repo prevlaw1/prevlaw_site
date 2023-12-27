@@ -57,9 +57,6 @@
     const blogData = await queryContent('beneficios').where({
         slug: route.params.slug
     }).findOne();
-    const autor = await queryContent('autores').where({
-        slug: blogData.author
-    }).findOne();
     const categorias = await queryContent('categorias').find();
     const categoria = await queryContent('categorias').where({
         slug: blogData.category
@@ -71,6 +68,9 @@
         category: blogData.category,
         slug: { $ne: blogData.slug }
     }).limit(6).find();
+    
+    const autores = await queryContent('autores').find();
+    const autor = autores.find(a => a.slug === blogData.author);
 
     const data = reactive({
         blog: blogData,
@@ -99,6 +99,7 @@
     });
 
     function buildItem(publicacao) {
+        let autor = autores.find(a => a.slug === publicacao.author);
         let item = {}
         if(publicacao.date) {
             let dataObj = new Date(publicacao.date);
@@ -113,8 +114,8 @@
         item.image = publicacao.cover;
         item.brow = categorias.find(c => c.slug === publicacao.category).name;
         item.url=`/beneficios/${item.slug}`;
-        item.autor = data.autor.name;
-        item.autorImage = data.autor.picture;
+        item.autor = autor.name;
+        item.autorImage = autor.picture;
         return item;
     }
     
@@ -137,8 +138,10 @@
         position: relative;
         display: flex;
         flex-flow: column nowrap;
-        @media screen and (max-width: 36em) {
-            padding: 24px 0;
+        @media (max-width: 36em) {
+            min-height: 450px;
+            height: auto;
+            padding-top: 120px;
         }
         * {
             color: white;
