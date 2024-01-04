@@ -18,7 +18,9 @@ export default defineNuxtConfig({
         { name: 'twitter:image:alt',  content: 'Imagem de página para Prevlaw'},
         { name: 'twitter:description', content: 'Reforma da previdência, cálculo automático a partir do CNIS, cálculo de qualidade de segurado, conversão de tempos especiais em comum e especiais em especiais, checagem de pendências, panorama completo dos benefícios, relatórios de tempo e RMI.' }
       ],
-      script: [],
+      script: [
+        { id: 'mcjs', textContent: '!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/18e80cddaa76b0befc4d3a492/6f7bcd138243b7e49ceaf79f8.js");'}
+      ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
         { rel: 'icon', type: 'image/png', href: '/favicon.png' },
