@@ -10,6 +10,7 @@
     "generate": "node fileImport.js && nuxt generate"
   },
   "devDependencies": {
+    "@types/rss": "^0.0.32",
     "node-sass": "^7.0.1",
     "nuxt": "^3.0.0-rc.11"
   },
@@ -22,6 +23,7 @@
     "jsdom": "^22.1.0",
     "lodash": "^4.17.21",
     "path": "^0.12.7",
+    "rss": "^1.2.2",
     "sass": "^1.54.4",
     "showdown": "^2.1.0",
     "vue-social-sharing": "^4.0.0-alpha4"

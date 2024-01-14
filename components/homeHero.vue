@@ -58,21 +58,27 @@ function findPost(i) {
     return post
 }
 
+function buildPost(publicacao) {
+  let item = {}
+  if(publicacao.date) {
+      let dataObj = new Date(publicacao.date);
+      item.trueDate = dataObj;
+      item.date = formatadorData.format(dataObj);
+  }
+  item.slug = publicacao.slug;
+  item.title = publicacao.title;
+  item.image = publicacao.cover;
+  item.categoria = categorias.find(c => c.slug === publicacao.category).name;
+  item.type = publicacao.type;
+  item.url=`/${item.type}/${item.slug}`;
+  return item;
+}
+
 reel.forEach(i => {
     let item = {}
     if (i.ref) {
         const publicacao = findPost(i);
-        console.log(publicacao)
-        if(publicacao.date) {
-            let dataObj = new Date(publicacao.date);
-            item.date = formatadorData.format(dataObj);
-        }
-        item.slug = publicacao.slug;
-        item.title = i.title? i.title : publicacao.title;
-        item.image = i.capa? i.capa : publicacao.cover;
-        item.categoria = categorias.find(c => c.slug === publicacao.category).name;
-        item.type = publicacao.type;
-        item.url=`/${item.type}/${item.slug}`;
+        item = buildPost(publicacao);
     } else {
         item.slug = i.slug;
         item.title = i.title;
