@@ -40,4 +40,9 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxt/image',
   ],
+  generate: {
+    routes: [
+      '/rss.xml',
+    ]
+  }
 });
