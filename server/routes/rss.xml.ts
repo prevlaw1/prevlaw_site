@@ -20,13 +20,10 @@ export default defineEventHandler(async (event) => {
       feed.item({
     
         title: doc.title ?? '-',
-    
         url: `https://www.prevlaw.com${ doc.type === 'noticias' ? '/noticias' : doc.type === 'beneficios' ? '/beneficios' : '/revisoes' }/${doc.slug }`,
-    
         date: doc.date,
-    
-        description: doc.description,
-    
+        description: doc.excerpt?doc.excerpt:'-',
+        enclosure: {  url: doc.cover },
       })
     
     }

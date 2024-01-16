@@ -8,6 +8,7 @@ const space = process.env["SPACE_ID"] ? process.env["SPACE_ID"] : "";
 
 const contentfulClient = require('contentful');
 const { html } = require("parse5");
+const { DOMParser } = require('xmldom');
 // use default environment config for convenience
 // these will be set via `env` property in nuxt.config.js
 const config = {
@@ -140,6 +141,14 @@ const generator = async () => {
         let fields = element.fields;
         let author = await getEntry(fields.autor.sys.id);
         let category = await getEntry(fields.categoria.sys.id);
+        let conteudo = await fetchRichTextData(fields.conteudo);
+        let firstParagraph = '';
+        const parser = new DOMParser();
+        const htmlDoc = parser.parseFromString(conteudo, 'text/html');
+        const paragraphs = htmlDoc.getElementsByTagName('p');
+        if (paragraphs.length > 0) {
+          firstParagraph = paragraphs[0].textContent.trim();
+        }
         let update = {
           slug: slugify(fields.titulo),
           title: fields.titulo,
@@ -148,7 +157,8 @@ const generator = async () => {
           date: fields.data,
           cover: await getImage(fields.capa.sys.id),
           category: slugify(category.titulo),
-          content: await fetchRichTextData(fields.conteudo),
+          content: conteudo,
+          excerpt: firstParagraph,
           type: 'noticias'
         }
         fs.access(pubDir, fs.constants.R_OK | fs.constants.W_OK, async (err) => {
@@ -181,6 +191,14 @@ const generator = async () => {
           let fields = element.fields;
           let author = await getEntry(fields.autor.sys.id);
           let category = await getEntry(fields.categoria.sys.id);
+          let conteudo = await fetchRichTextData(fields.conteudo);
+          let firstParagraph = '';
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(conteudo, 'text/html');
+          const paragraphs = htmlDoc.getElementsByTagName('p');
+          if (paragraphs.length > 0) {
+            firstParagraph = paragraphs[0].textContent.trim();
+          }
           let beneficio = {
             slug: slugify(fields.titulo),
             title: fields.titulo,
@@ -189,7 +207,8 @@ const generator = async () => {
             date: fields.data,
             cover: await getImage(fields.capa.sys.id),
             category: slugify(category.titulo),
-            content: await fetchRichTextData(fields.conteudo),
+            content: conteudo,
+            excerpt: firstParagraph,
             atualizacao: element.sys.updatedAt,
             type: 'beneficios'
           }
@@ -223,6 +242,14 @@ const generator = async () => {
             let fields = element.fields;
             let author = await getEntry(fields.autor.sys.id);
             let category = await getEntry(fields.categoria.sys.id);
+            let conteudo = await fetchRichTextData(fields.conteudo);
+            let firstParagraph = '';
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(conteudo, 'text/html');
+            const paragraphs = htmlDoc.getElementsByTagName('p');
+            if (paragraphs.length > 0) {
+              firstParagraph = paragraphs[0].textContent.trim();
+            }
             let revisao = {
               slug: slugify(fields.titulo),
               title: fields.titulo,
@@ -231,7 +258,8 @@ const generator = async () => {
               date: fields.data,
               cover: await getImage(fields.capa.sys.id),
               category: slugify(category.titulo),
-              content: await fetchRichTextData(fields.conteudo),
+              content: conteudo,
+              excerpt: firstParagraph,
               atualizacao: element.sys.updatedAt,
               type: 'revisoes'
             }
