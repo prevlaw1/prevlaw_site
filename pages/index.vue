@@ -54,6 +54,12 @@
 </template>
 
 <script setup>
+useHead({
+    script: [
+      { children: "gtag('event', 'conversion', {'send_to': 'AW-11469171212/p1fSCK6Qm4kZEIzU9twq'});"},
+    ]
+})
+
 const categorias = await queryContent('categorias').find();
 const autores = await queryContent('autores').find();
 const publicacoes = await queryContent('publicacoes').find();
