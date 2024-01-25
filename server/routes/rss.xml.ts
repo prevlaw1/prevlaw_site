@@ -15,10 +15,11 @@ export default defineEventHandler(async (event) => {
     let blogPosts = docs.filter((doc) => doc?.type?.includes('noticias') || doc?.type?.includes('beneficios') || doc?.type?.includes('revisoes'))
 
     
+    blogPosts = blogPosts.splice(0, 3);
+    
     for (const doc of blogPosts) {
     
       feed.item({
-    
         title: doc.title ?? '-',
         url: `https://www.prevlaw.com${ doc.type === 'noticias' ? '/noticias' : doc.type === 'beneficios' ? '/beneficios' : '/revisoes' }/${doc.slug }`,
         date: doc.date,
