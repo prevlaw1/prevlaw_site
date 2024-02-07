@@ -42,9 +42,9 @@
         </section>
         <section class="extra-content">
             <div class="center | outros-conteudos" size="wide">
-                <h3 class="outros-conteudos__name | default-subtitle">Outros revisões</h3>
+                <h3 class="outros-conteudos__name | default-subtitle">Outras revisões</h3>
                 <div class="outros-conteudos__list | grid-3">
-                    <base-card v-for="post in data.outros" v-bind:key="post.slug" :cardData="post" tagColor="accent" linkText="Conheça o benefício" />
+                    <base-card v-for="post in data.outros" v-bind:key="post.slug" :cardData="post" tagColor="accent" linkText="Conheça a revisão" />
                 </div>
             </div>
         </section>

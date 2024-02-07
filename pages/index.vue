@@ -7,11 +7,16 @@
           <h2 class="default-title | destaque-meio__title">Últimos posts</h2>
           <div v-for="post in data.destaqueMeio" v-bind:key="post.slug">
             <base-card :cardData="post" v-if="post.type == 'noticias'" />
+            <base-card :cardData="post" tagColor="accent" linkText="Conheça a revisão" v-else-if="post.type == 'revisoes'"  />
             <base-card :cardData="post" tagColor="accent" linkText="Conheça o benefício" v-else  />
           </div>
         </div>
         <div class="destaque-lateral">
-          <alternate-card v-for="post in data.destaqueLateral" v-bind:key="post.slug" :cardData="post" ></alternate-card>
+          <div v-for="post in data.destaqueLateral" v-bind:key="post.slug" >
+            <alternate-card :cardData="post" v-if="post.type == 'noticias'"></alternate-card>
+            <alternate-card :cardData="post" v-else-if="post.type == 'revisoes'" linkText="Conheça a revisão"></alternate-card>
+            <alternate-card :cardData="post" v-else linkText="Conheça o benefício"></alternate-card>
+          </div>
         </div>
       </div>
     </section>
@@ -45,6 +50,7 @@
       <div class="mais-acessadas__grid">
           <div v-for="post in data.maisAcessadas" v-bind:key="post.slug" >
             <base-card :cardData="post" v-if="post.type == 'noticias'" />
+            <base-card :cardData="post" tagColor="accent" linkText="Conheça a revisão" v-else-if="post.type == 'revisoes'"  />
             <base-card :cardData="post" tagColor="accent" linkText="Conheça o benefício" v-else  />
           </div>
       </div>
@@ -68,6 +74,10 @@ const revisoes = await queryContent('revisoes').find();
 const destaqueMeio = await queryContent('destaque-meio').find();
 const destaqueLateral = await queryContent('destaque-lateral').find();
 const maisAcessadas = await queryContent('mais-acessadas').find();
+
+let todos = publicacoes.concat(beneficios, revisoes);
+todos = publicacoes.sort((a, b) => new Date(b.date) - new Date(a.date));
+todos = todos.slice(0, 3);
 
 const data = reactive({
     destaqueMeio: [],
@@ -112,16 +122,17 @@ function buildItem(i) {
     return item;
 }
 
-destaqueMeio.forEach(i => {
-    data.destaqueMeio.push(buildItem(i));
+todos.forEach(i => {
+  i.ref = i.slug;
+  data.destaqueMeio.push(buildItem(i));
 });
 
 destaqueLateral.forEach(i => {
-    data.destaqueLateral.push(buildItem(i));
+  data.destaqueLateral.push(buildItem(i));
 });
 
 maisAcessadas.forEach(i => {
-    data.maisAcessadas.push(buildItem(i));
+  data.maisAcessadas.push(buildItem(i));
 });
 
 //REEL DE CATEGORIAS

@@ -12,6 +12,7 @@
                     </li>
                 </ul>
                 <social-list :negativo="true" size="small" v-if="c.socials"></social-list>
+                <p class="footer-text" v-if="c.cnpj">CNPJ: 52.657.636/0001-04</p>
             </div>
         </div>
     </footer>
@@ -138,7 +139,8 @@
                     target: "_blank"
                 }*/
             ],
-            socials: true
+            socials: true,
+            cnpj: true
         }
     ]
 </script>
@@ -195,5 +197,12 @@
 
         :deep(.socials) {
             margin-top: 24px;
+        }
+
+        .footer-text {
+            margin-top: 24px;
+            color: hsla(0, 0%, 100%, 1);
+            font-size: 0.875em;
+            font-weight: 500;
         }
 </style>

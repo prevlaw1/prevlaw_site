@@ -5,7 +5,7 @@
             <brow-date class="alternate-card__top" :brow="props.cardData.brow" :date="props.cardData.date" color="secondary" v-if="props.cardData.brow || props.cardData.date"></brow-date>
             <nuxt-link :to="props.cardData.url" class="alternate-card__title">{{ props.cardData.title }}</nuxt-link>
             <author-line color="secondary" :autor="props.cardData.autor" :autorImage="props.cardData.autorImage" v-if="props.cardData.autor || props.cardData.autorImage"></author-line>
-            <nuxt-link class="base-link" :to="props.cardData.url">Confira a publicação <span class="material-symbols-outlined">chevron_right</span></nuxt-link>
+            <nuxt-link class="base-link" :to="props.cardData.url">{{ props.linkText }}<span class="material-symbols-outlined">chevron_right</span></nuxt-link>
         </div>
     </div>
 </template>
@@ -23,8 +23,12 @@
         url: '#',
         autor: 'Lorem Ipsum',
         autorImage: 'https://picsum.photos/200/300',
-      },
+      }
     },
+    linkText: {
+        type: String,
+        default: 'Confira a publicação',
+    }
   });
 </script>
 

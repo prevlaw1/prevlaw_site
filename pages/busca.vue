@@ -22,6 +22,7 @@
             <div class="busca__list | grid-3" v-if="data.filteredLista && data.filteredLista.length >= 1">
               <div v-for="post in data.filteredLista" v-bind:key="post.slug">
                 <base-card :cardData="post" v-if="post.type == 'noticias'" />
+                <base-card :cardData="post" tagColor="accent" linkText="Conheça a revisão" v-else-if="post.type == 'revisoes'"  />  
                 <base-card :cardData="post" tagColor="accent" linkText="Conheça o benefício" v-else  />
               </div>
             </div>

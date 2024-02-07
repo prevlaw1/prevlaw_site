@@ -64,7 +64,7 @@
         <section>
             <div class="center | revisoes" size="wide">
                 <div class="revisoes__list | grid-3">
-                    <base-card v-for="post in data.revisoes" v-bind:key="post.slug" :cardData="post" tagColor="accent" linkText="Conheça o benefício" />
+                    <base-card v-for="post in data.revisoes" v-bind:key="post.slug" :cardData="post" tagColor="accent" linkText="Conheça a revisão" />
                 </div>
             </div>
         </section>
