@@ -12,7 +12,7 @@
                     </li>
                 </ul>
                 <social-list :negativo="true" size="small" v-if="c.socials"></social-list>
-                <p class="footer-text" v-if="c.cnpj">CNPJ: 52.657.636/0001-04</p>
+                <p class="footer-text" v-if="c.cnpj">Prevlaw LTDA - 52.657.636/0001-04</p>
             </div>
         </div>
     </footer>

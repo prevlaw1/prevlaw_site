@@ -154,19 +154,72 @@
 
     const filterList = (termo) => {
       const searchWords = _.words(termo.toLowerCase());
-      const list =  data.lista.filter(item => {
-        for (const key in item) {
-          // Check if the search term is present in any attribute
-          if (_.words(item[key].toLowerCase()).some(word => searchWords.includes(word))) {
-            return true; 
+
+      // Ordena os itens de acordo com a preferência
+      const sortedList = data.lista.sort((a, b) => {
+        // Verifica se o termo completo está presente em algum atributo de a e b
+        const aFullTermMatch = hasFullTermMatch(a, searchWords);
+        const bFullTermMatch = hasFullTermMatch(b, searchWords);
+
+        if (aFullTermMatch && !bFullTermMatch) return -1; // a vem antes de b
+        if (!aFullTermMatch && bFullTermMatch) return 1; // b vem antes de a
+
+        // Calcula a quantidade de palavras do termo presentes em cada item
+        const aWordsMatched = countWordsMatched(a, searchWords);
+        const bWordsMatched = countWordsMatched(b, searchWords);
+
+        // Ordena com base na quantidade de palavras do termo presentes
+        if (aWordsMatched > bWordsMatched) return -1; // a vem antes de b
+        if (aWordsMatched < bWordsMatched) return 1; // b vem antes de a
+
+        return 0; // a e b são iguais em relação às preferências
+      });
+
+      //Marca as palavras procuradas
+      sortedList.forEach(item => {
+        item.title = highlightTitle(item, searchWords);
+      });
+      // Atualiza data.filteredLista com os itens ordenados
+      data.filteredLista = sortedList;
+    };
+
+    // Verifica se o termo completo está presente em algum atributo do item
+    const hasFullTermMatch = (item, searchWords) => {
+      return Object.values(item).some(value =>
+        _.words(value.toLowerCase()).join(' ').includes(searchWords.join(' '))
+      );
+    };
+
+    // Calcula a quantidade de palavras do termo presentes no item
+    const countWordsMatched = (item, searchWords) => {
+      let count = 0;
+      Object.values(item).forEach(value => {
+        _.words(value.toLowerCase()).forEach(word => {
+          if (searchWords.includes(word)) {
+            count++;
           }
-        }
-        return false;
+        });
       });
-      list.forEach(element => {
-        data.filteredLista.push(element);
+      return count;
+    };
+
+    // Função para destacar os termos no título
+    const highlightTitle = (item, searchWords) => {
+      let highlightedTitle = item.title;
+
+      // Itera sobre os termos de pesquisa
+      searchWords.forEach(term => {
+        // Cria uma expressão regular que mantém o caso original da palavra
+        const regExp = new RegExp(`\\b${_.escapeRegExp(term)}\\b`, 'gi');
+        // Substitui o termo correspondente pelo termo envolto em <b>
+        highlightedTitle = highlightedTitle.replace(regExp, (match) => {
+          return `<b>${match}</b>`;
+        });
       });
-    }
+
+      return highlightedTitle;
+    };
+
     if(route.query && route.query.termo){
       filterList(route.query.termo);
     } else {

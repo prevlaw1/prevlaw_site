@@ -54,6 +54,14 @@
   .prose :deep(h6) {
     font-size: 0.875em;
   }
+
+  .prose :deep(a) {
+    font-weight: 600;
+    color: #0054A8;
+    * {
+      color: #0054A8;
+    }
+  }
   
   /* Styles for .brow */
   .prose :deep(.brow) {
