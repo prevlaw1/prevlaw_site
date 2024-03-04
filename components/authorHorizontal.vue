@@ -7,12 +7,12 @@
         </div>
         <div class="author-card__content">
             <p class="author-card__sobre">Sobre o autor desse conteúdo</p>
-            <p class="author-card__tempo">Colunista desde {{ props.autor.desde }}</p>
+            <p class="author-card__tempo">Colunista desde {{ props.autor.colunistaDesde }}</p>
             <div class="author-card__info">
-                <p class="author-card__nome">{{ props.autor.name }}</p>
+                <p class="author-card__nome">{{ props.autor.nome }}</p>
                 <p class="author-card__cargo">{{ props.autor.cargo }}</p>
             </div>
-                <nuxt-link class="base-link" :to="`/busca?tudo=on&autor=${props.autor.slug}`">Veja o perfil de {{ props.autor.name }} <span class="material-symbols-outlined">chevron_right</span></nuxt-link>
+                <nuxt-link class="base-link" :to="`/busca?tudo=on&autor=${props.autor.slug}`">Veja o perfil de {{ props.autor.nome }} <span class="material-symbols-outlined">chevron_right</span></nuxt-link>
         </div>
     </div>
 </template>

@@ -69,7 +69,7 @@
         slug: { $ne: blogData.slug }
     }).limit(6).find();
     const autores = await queryContent('autores').find();
-    const autor = autores.find(a => a.slug === blogData.author);
+    const autor = autores.find(a => a.slug == blogData.autorSlug);
 
     const data = reactive({
         blog: blogData,
