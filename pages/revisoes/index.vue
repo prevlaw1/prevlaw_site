@@ -82,9 +82,9 @@
     function buildItem(publicacao) {
         let item = {};
         item.slug = publicacao.slug;
-        item.title = publicacao.title;
-        item.image = publicacao.cover;
-        item.brow = categorias.find(c => c.slug === publicacao.category).name;
+        item.title = publicacao.titulo;
+        item.image = publicacao.capa;
+        item.brow = publicacao.categoria.titulo;
         item.url=`/revisoes/${item.slug}`;
         return item;
     }

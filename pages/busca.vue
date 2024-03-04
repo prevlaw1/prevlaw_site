@@ -61,13 +61,13 @@
     let categoriaName = '';
     let autorName = '';
     if(route.query && route.query.categoria) {
-      publicacoes = await queryContent('publicacoes').where({category: route.query.categoria}).find();
-      beneficios = await queryContent('beneficios').where({category: route.query.categoria}).find();
-      revisoes = await queryContent('revisoes').where({category: route.query.categoria}).find();
+      publicacoes = await queryContent('publicacoes').where({categoriaSlug: route.query.categoria}).find();
+      beneficios = await queryContent('beneficios').where({categoriaSlug: route.query.categoria}).find();
+      revisoes = await queryContent('revisoes').where({categoriaSlug: route.query.categoria}).find();
     } else if (route.query && route.query.autor) {
-      publicacoes = await queryContent('publicacoes').where({author: route.query.autor}).find();
-      beneficios = await queryContent('beneficios').where({author: route.query.autor}).find();
-      revisoes = await queryContent('revisoes').where({author: route.query.autor}).find();
+      publicacoes = await queryContent('publicacoes').where({autorSlug: route.query.autor}).find();
+      beneficios = await queryContent('beneficios').where({autorSlug: route.query.autor}).find();
+      revisoes = await queryContent('revisoes').where({autorSlug: route.query.autor}).find();
     } else {
       publicacoes = publicacoesAll;
       beneficios = beneficiosAll;
@@ -75,12 +75,14 @@
     }
     const categorias = await queryContent('categorias').find();
     const autores = await queryContent('autores').find();
-    const maisAcessadas = await queryContent('mais-acessadas').find();
+    let todos = publicacoes.concat(beneficios, revisoes);
+    let maisAcessadas = todos.sort((a, b) => b.acessos - a.acessos);
+    maisAcessadas = maisAcessadas.slice(0, 6);
     if(route.query && route.query.categoria) {
-      categoriaName = categorias.find(c => c.slug === route.query.categoria).name;
+      categoriaName = categorias.find(c => c.slug == route.query.categoria).titulo;
     }
     if(route.query && route.query.autor) {
-      autorName = autores.find(c => c.slug === route.query.autor).name;
+      autorName = autores.find(c => c.slug == route.query.autor).nome;
     }
 
     const data = reactive({
@@ -96,32 +98,35 @@
     let formatadorData = new Intl.DateTimeFormat('pt-BR', opcoes);
 
     function findPost(i) {
-        let post = publicacoesAll.find(p => p.slug === i.ref);
-        if(!post || post.length <= 0) {
-          post = beneficiosAll.find(p => p.slug === i.ref);
-        }
-        if(!post || post.length <= 0) {
-          post = revisoesAll.find(p => p.slug === i.ref);
-        }
-        return post
+      let id = publicacoes.find(p => p.id === i.id);
+      let post = id? id.slug == i.slug ? id : null : null;
+      if(!post || post.length <= 0) {
+        id = beneficios.find(p => p.id === i.id);
+        post = id? id.slug == i.slug ? id : null : null;
+      }
+      if(!post || post.length <= 0) {
+        id = revisoes.find(p => p.id === i.id);
+        post = id? id.slug == i.slug ? id : null : null;
+      }
+      return post
     }
 
     function buildItem(publicacao) {
         let item = {};
         item.slug = publicacao.slug;
-        item.title = publicacao.title;
-        item.image = publicacao.cover;
-        item.brow = categorias.find(c => c.slug === publicacao.category).name;
+        item.title = publicacao.titulo;
+        item.image = publicacao.capa;
+        item.brow = publicacao.categoria.nome;
         item.type = publicacao.type;
         item.url=`/${item.type}/${item.slug}`;
         let dataObj;
-        if(publicacao.atualizacao) {
-          dataObj = new Date(publicacao.atualizacao);
+        if(publicacao.date_updated) {
+          dataObj = new Date(publicacao.date_updated);
         } else {
-          dataObj = new Date(publicacao.date);
+          dataObj = new Date(publicacao.data);
         }
         item.date = formatadorData.format(dataObj);
-        item.atualizado = publicacao.atualizacao? publicacao.atualizacao: publicacao.date;
+        item.atualizado = publicacao.date_updated? publicacao.date_updated: publicacao.data;
         return item;
     }
     
@@ -185,8 +190,8 @@
 
     // Verifica se o termo completo está presente em algum atributo do item
     const hasFullTermMatch = (item, searchWords) => {
-      return Object.values(item).some(value =>
-        _.words(value.toLowerCase()).join(' ').includes(searchWords.join(' '))
+      return Object.values(item).some(value => 
+        value?_.words(value.toLowerCase()).join(' ').includes(searchWords.join(' ')):false
       );
     };
 
@@ -194,11 +199,13 @@
     const countWordsMatched = (item, searchWords) => {
       let count = 0;
       Object.values(item).forEach(value => {
-        _.words(value.toLowerCase()).forEach(word => {
-          if (searchWords.includes(word)) {
-            count++;
-          }
-        });
+        if(value) {
+          _.words(value.toLowerCase()).forEach(word => {
+            if (searchWords.includes(word)) {
+              count++;
+            }
+          });
+        }
       });
       return count;
     };

@@ -25,7 +25,7 @@
       <div class="reel | cat-reel">
         <div class="cat-reel__item | cat-reel__item" v-for="categoria in categorias" v-bind:key="categoria.slug">
           <nuxt-link :to="`/busca?tudo=on&categoria=${categoria.slug}`" class="cat-reel__card" :style="`background-image:url(${categoria.capa})`">
-            <h3 class="cat-reel__title">{{ categoria.name }}</h3>
+            <h3 class="cat-reel__title">{{ categoria.titulo }}</h3>
           </nuxt-link>
         </div>
       </div>
@@ -67,16 +67,15 @@ useHead({
 })
 
 const categorias = await queryContent('categorias').find();
-const autores = await queryContent('autores').find();
 const publicacoes = await queryContent('publicacoes').find();
 const beneficios = await queryContent('beneficios').find();
 const revisoes = await queryContent('revisoes').find();
-const destaqueMeio = await queryContent('destaque-meio').find();
-const destaqueLateral = await queryContent('destaque-lateral').find();
-const maisAcessadas = await queryContent('mais-acessadas').find();
+const destaquesHome = await queryContent('destaques-home').find();
 
 let todos = publicacoes.concat(beneficios, revisoes);
 todos = publicacoes.sort((a, b) => new Date(b.date) - new Date(a.date));
+let maisAcessadas = todos.sort((a, b) => b.acessos - a.acessos);
+maisAcessadas = maisAcessadas.slice(0, 6);
 todos = todos.slice(0, 3);
 
 const data = reactive({
@@ -93,12 +92,24 @@ let opcoes = { day: 'numeric', month: 'long', year: 'numeric' };
 let formatadorData = new Intl.DateTimeFormat('pt-BR', opcoes);
 
 function findPost(i) {
-    let post = publicacoes.find(p => p.slug === i.ref);
+    if (i.collection) {
+      if(i.collection == 'publicacao') {
+        return publicacoes.find(p => p.id == i.item);
+      } else if (i.collection == 'beneficios') {
+        return beneficios.find(p => p.id == i.item);
+      } else if (i.collection == 'revisao') {
+        return revisoes.find(p => p.id == i.item);
+      }
+    }
+    let id = publicacoes.find(p => p.id === i.id);
+    let post = id? id.slug == i.slug ? id : null : null;
     if(!post || post.length <= 0) {
-      post = beneficios.find(p => p.slug === i.ref);
+      id = beneficios.find(p => p.id === i.id);
+      post = id? id.slug == i.slug ? id : null : null;
     }
     if(!post || post.length <= 0) {
-      post = revisoes.find(p => p.slug === i.ref);
+      id = revisoes.find(p => p.id === i.id);
+      post = id? id.slug == i.slug ? id : null : null;
     }
     return post
 }
@@ -106,28 +117,28 @@ function findPost(i) {
 function buildItem(i) {
     let item = {}
     const publicacao = findPost(i);
-    const autor = autores.find(a => a.slug === publicacao.author);
-    if(publicacao.date) {
-        let dataObj = new Date(publicacao.date);
+    if(publicacao.data) {
+        let dataObj = new Date(publicacao.data);
         item.date = formatadorData.format(dataObj);
     }
     item.slug = publicacao.slug;
     item.title = publicacao.title;
-    item.image = i.capa? i.capa : publicacao.cover;
-    item.brow = categorias.find(c => c.slug === publicacao.category).name;
+    item.image = i.capa? i.capa : publicacao.capa;
+    item.brow = publicacao.categoria.titulo;
     item.url=`/${publicacao.type}/${item.slug}`;
-    item.autor = autor.name;
-    item.autorImage = autor.picture;
+    item.autor = publicacao.autor.nome;
+    item.autorImage = publicacao.autor.picture;
     item.type = publicacao.type;
     return item;
 }
 
-todos.forEach(i => {
-  i.ref = i.slug;
+destaquesHome[0].destaque_1.forEach(i => {
+  i.id = i.item;
   data.destaqueMeio.push(buildItem(i));
 });
 
-destaqueLateral.forEach(i => {
+destaquesHome[0].destaque_2.forEach(i => {
+  i.id = i.item;
   data.destaqueLateral.push(buildItem(i));
 });
 

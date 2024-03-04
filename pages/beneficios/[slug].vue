@@ -1,10 +1,10 @@
 <template>
     <article>
-        <section class="hero" :style="`background-image: url(${data.blog.cover});`">
+        <section class="hero" :style="`background-image: url(${data.blog.capa});`">
             <pl-menu></pl-menu>
             <div class="center | hero__content" size="wide">
-                <h1 class="hero__title">{{ data.blog.title }}</h1>
-                <div class="hero__subtitle">{{ data.blog.date }} (Atualizado em {{ data.blog.atualizacao }})</div>
+                <h1 class="hero__title">{{ data.blog.titulo }}</h1>
+                <div class="hero__subtitle">{{ data.blog.data }} (Atualizado em {{ data.blog.atualizacao }})</div>
             </div>
             <div class="center" size="wide">
                 <div class="breadcrumbs">
@@ -12,20 +12,20 @@
                     <span class="material-symbols-outlined">chevron_right</span>
                     <nuxt-link to="/beneficios" class="breadcrumbs__link">Benefícios</nuxt-link>
                     <span class="material-symbols-outlined">chevron_right</span>
-                    <p class="breadcrumbs__current">{{ data.blog.title }}</p>
+                    <p class="breadcrumbs__current">{{ data.blog.titulo }}</p>
                 </div>
             </div>
         </section>
         <section class="publicacao-content">
             <div class="center | publicacao" size="wide">
                 <div class="publicacao__content">
-                    <social-share :title="data.blog.title"></social-share>
+                    <social-share :title="data.blog.titulo"></social-share>
                     <prose-content>
-                        <div v-html="data.blog.content"></div>
+                        <div v-html="data.blog.conteudo"></div>
                     </prose-content>
                     <author-horizontal :autor="data.autor"></author-horizontal>
                     <banner-principal></banner-principal>
-                    <social-share :title="data.blog.title"></social-share>
+                    <social-share :title="data.blog.titulo"></social-share>
                 </div>
                 <div class="publicacao__sidebar">
                     <div class="categorias">
@@ -59,18 +59,18 @@
     }).findOne();
     const categorias = await queryContent('categorias').find();
     const categoria = await queryContent('categorias').where({
-        slug: blogData.category
+        slug: blogData.categoriaSlug
     }).findOne();
     const otherBlogData = await queryContent('beneficios').where({
         slug: { $ne: blogData.slug }
     }).limit(3).find();
     const relatedBlogData = await queryContent('beneficios').where({
-        category: blogData.category,
+        categoriaSlug: blogData.categoriaSlug,
         slug: { $ne: blogData.slug }
     }).limit(6).find();
     
     const autores = await queryContent('autores').find();
-    const autor = autores.find(a => a.slug === blogData.author);
+    const autor = autores.find(a => a.slug == blogData.autorSlug);
 
     const data = reactive({
         blog: blogData,
@@ -85,9 +85,9 @@
 
     // Criar um objeto Intl.DateTimeFormat com as opções
     let formatadorData = new Intl.DateTimeFormat('pt-BR', opcoes);
-    let dataObj = new Date(data.blog.date);
-    let atzObj = new Date(data.blog.atualizacao);
-    data.blog.date = formatadorData.format(dataObj);
+    let dataObj = new Date(data.blog.data);
+    let atzObj = data.blog.date_updated ? new Date(data.blog.date_updated): new Date(data.blog.data);
+    data.blog.data = formatadorData.format(dataObj);
     data.blog.atualizacao = formatadorData.format(atzObj);
 
     otherBlogData.forEach(element => {
@@ -99,32 +99,32 @@
     });
 
     function buildItem(publicacao) {
-        let autor = autores.find(a => a.slug === publicacao.author);
+        let autor = publicacao.autor;
         let item = {}
-        if(publicacao.date) {
-            let dataObj = new Date(publicacao.date);
-            item.date = formatadorData.format(dataObj);
+        if(publicacao.data) {
+            let dataObj = new Date(publicacao.data);
+            item.data = formatadorData.format(dataObj);
         }
         if(publicacao.atualizacao) {
             let atzObj = new Date(publicacao.atualizacao);
             item.atualizacao = formatadorData.format(atzObj);
         }
         item.slug = publicacao.slug;
-        item.title = publicacao.title;
-        item.image = publicacao.cover;
-        item.brow = categorias.find(c => c.slug === publicacao.category).name;
+        item.title = publicacao.titulo;
+        item.image = publicacao.capa;
+        item.brow = publicacao.categoria.titulo;
         item.url=`/beneficios/${item.slug}`;
-        item.autor = autor.name;
-        item.autorImage = autor.picture;
+        item.autor = publicacao.autor.nome;
+        item.autorImage = publicacao.autor.picture;
         return item;
     }
     
   useHead({
-      title: `Prevlaw | ${blogData.title}`,
+      title: `Prevlaw | ${blogData.titulo}`,
       meta: [
-        { property: 'og:title',  content: `Prevlaw | ${blogData.title}`},
-        { property: 'og:image',  content: blogData.cover},
-        { name: 'twitter:image',  content: blogData.cover},
+        { property: 'og:title',  content: `Prevlaw | ${blogData.titulo}`},
+        { property: 'og:image',  content: blogData.capa},
+        { name: 'twitter:image',  content: blogData.capa},
       ]
   })
     

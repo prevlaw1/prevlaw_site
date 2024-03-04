@@ -31,9 +31,6 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
 const categorias = await queryContent('categorias').find();
-const publicacoes = await queryContent('publicacoes').find();
-const revisoes = await queryContent('revisoes').find();
-const beneficios = await queryContent('beneficios').find();
 const reel = await queryContent('reel').find();
 
 const data = reactive({
@@ -48,27 +45,26 @@ let opcoes = { day: 'numeric', month: 'long', year: 'numeric' };
 let formatadorData = new Intl.DateTimeFormat('pt-BR', opcoes);
 
 function findPost(i) {
-    let post = publicacoes.find(p => p.slug === i.ref);
-    if(!post || post.length <= 0) {
-      post = beneficios.find(p => p.slug === i.ref);
-    }
-    if(!post || post.length <= 0) {
-      post = revisoes.find(p => p.slug === i.ref);
-    }
-    return post
+  if(i.tipo == 1) {
+    return i.publicacao;
+  } else if(i.tipo == 2) {
+    return i.beneficio
+  } else if (i.tipo == 3) {
+    return i.revisao
+  }
 }
 
 function buildPost(publicacao) {
   let item = {}
-  if(publicacao.date) {
-      let dataObj = new Date(publicacao.date);
+  if(publicacao.data) {
+      let dataObj = new Date(publicacao.data);
       item.trueDate = dataObj;
       item.date = formatadorData.format(dataObj);
   }
   item.slug = publicacao.slug;
-  item.title = publicacao.title;
-  item.image = publicacao.cover;
-  item.categoria = categorias.find(c => c.slug === publicacao.category).name;
+  item.title = publicacao.titulo;
+  item.image = publicacao.capa;
+  item.categoria = categorias.find(c => c.id === publicacao.categoria).name;
   item.type = publicacao.type;
   item.url=`/${item.type}/${item.slug}`;
   return item;
@@ -76,12 +72,13 @@ function buildPost(publicacao) {
 
 reel.forEach(i => {
     let item = {}
-    if (i.ref) {
-        const publicacao = findPost(i);
-        item = buildPost(publicacao);
+    if(i.tipo != 4) {
+      const publicacao = findPost(i);
+      publicacao.type = i.tipo == 1 ? 'noticias' : i.tipo == 2 ? 'beneficios' : 'revisoes';
+      item = buildPost(publicacao);
     } else {
         item.slug = i.slug;
-        item.title = i.title;
+        item.title = i.titulo;
         item.image = i.capa;
         item.url = i.url;
     }

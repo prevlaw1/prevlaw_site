@@ -1,19 +1,19 @@
 <template>
     <article>
-        <section class="hero" :style="`background-image: url(${data.blog.cover});`">
+        <section class="hero" :style="`background-image: url(${data.blog.capa});`">
             <pl-menu></pl-menu>
             <div class="center | hero__content" size="wide">
-                <brow-date :brow="data.blog.category" :date="data.blog.date" color="secondary"></brow-date>
-                <h1 class="hero__title">{{ data.blog.title }}</h1>
-                <div class="hero__subtitle">por {{ data.autor.name }}</div>
+                <brow-date :brow="data.blog.categoria.titulo" :date="data.blog.data" color="secondary"></brow-date>
+                <h1 class="hero__title">{{ data.blog.titulo }}</h1>
+                <div class="hero__subtitle">por {{ data.blog.autor.nome }}</div>
             </div>
             <div class="center" size="wide">
                 <div class="breadcrumbs">
                     <nuxt-link to="/" class="breadcrumbs__link">Home</nuxt-link>
                     <span class="material-symbols-outlined">chevron_right</span>
-                    <nuxt-link :to="`/busca?tudo=on&categoria=${data.categoria.slug}`" class="breadcrumbs__link">{{ data.categoria.name }}</nuxt-link>
+                    <nuxt-link :to="`/busca?tudo=on&categoria=${data.blog.categoriaSlug}`" class="breadcrumbs__link">{{ data.blog.categoria.titulo }}</nuxt-link>
                     <span class="material-symbols-outlined">chevron_right</span>
-                    <p class="breadcrumbs__current">{{ data.blog.title }}</p>
+                    <p class="breadcrumbs__current">{{ data.blog.titulo }}</p>
                 </div>
             </div>
         </section>
@@ -21,9 +21,9 @@
             <div class="center | publicacao" size="wide">
                 <div class="publicacao__content">
                     <h3 class="publicacao__tagline">{{ data.blog.tagline }}</h3>
-                    <social-share :title="data.blog.title"></social-share>
+                    <social-share :title="data.blog.titulo"></social-share>
                     <prose-content>
-                        <div v-html="data.blog.content"></div>
+                        <div v-html="data.blog.conteudo"></div>
                     </prose-content>
                 </div>
                 <div class="publicacao__sidebar">
@@ -33,7 +33,7 @@
                         <h3 class="h4">Navegue por categoria</h3>
                         <ul class="button-list">
                             <li class="button-list__item" v-for="c in categorias" v-bind:key="c.slug">
-                                <nuxt-link :to="`/busca?tudo=on&categoria=${c.slug}`" class="button-list__button">{{ c.name }}</nuxt-link>
+                                <nuxt-link :to="`/busca?tudo=on&categoria=${c.slug}`" class="button-list__button">{{ c.titulo }}</nuxt-link>
                             </li>
                         </ul>
                     </div>
@@ -47,7 +47,7 @@
                 <div class="mais-autor__title">
                     <div class="mais-autor__autor">
                         <div class="mais-autor__image" :style="`background-image:url(${data.autor.picture});`"></div>
-                        <h3 class="mais-autor__name | default-subtitle">Mais conteúdos escritos por {{ data.autor.name }}</h3>
+                        <h3 class="mais-autor__name | default-subtitle">Mais conteúdos escritos por {{ data.autor.nome }}</h3>
                     </div>
                     <nuxt-link class="base-link" :to="`/busca?tudo=on&autor=${data.autor.slug}`">Veja todos os artigos <span class="material-symbols-outlined">chevron_right</span></nuxt-link>
                 </div>
@@ -72,25 +72,21 @@
     const blogData = await queryContent('publicacoes').where({
         slug: route.params.slug
     }).findOne();
-    const categoria = await queryContent('categorias').where({
-        slug: blogData.category
-    }).findOne();
     const otherBlogData = await queryContent('publicacoes').where({
-        author: blogData.author,
+        autorSlug: blogData.autorSlug,
         slug: { $ne: blogData.slug }
     }).limit(3).find();
     const relatedBlogData = await queryContent('publicacoes').where({
-        category: blogData.category,
+        categoriaSlug: blogData.categoriaSlug,
         slug: { $ne: blogData.slug }
     }).limit(3).find();
     const categorias = await queryContent('categorias').limit(6).find();
     const autores = await queryContent('autores').find();
-    const autor = autores.find(a => a.slug === blogData.author);
+    const autor = autores.find(a => a.slug == blogData.autorSlug);
 
     const data = reactive({
         blog: blogData,
         autor: autor,
-        categoria: categoria,
         otherAutor: [],
         otherCat: []
     });
@@ -100,8 +96,8 @@
 
     // Criar um objeto Intl.DateTimeFormat com as opções
     let formatadorData = new Intl.DateTimeFormat('pt-BR', opcoes);
-    let dataObj = new Date(data.blog.date);
-    data.blog.date = formatadorData.format(dataObj);
+    let dataObj = new Date(data.blog.data);
+    data.blog.data = formatadorData.format(dataObj);
 
     function buildItem(publicacao) {
         let autor = autores.find(a => a.slug === publicacao.author);
@@ -111,12 +107,12 @@
             item.date = formatadorData.format(dataObj);
         }
         item.slug = publicacao.slug;
-        item.title = publicacao.title;
-        item.image = publicacao.cover;
-        item.brow = categorias.find(c => c.slug === publicacao.category).name;
+        item.title = publicacao.titulo;
+        item.image = publicacao.capa;
+        item.brow = publicacao.categoria.titulo;
         item.url=`/noticias/${item.slug}`;
-        item.autor = autor.name;
-        item.autorImage = autor.picture;
+        item.autor = publicacao.autor.nome;
+        item.autorImage = publicacao.autor.picture;
         return item;
     }
 
@@ -129,13 +125,13 @@
     });
 
   useHead({
-      title: `Prevlaw | ${blogData.title}`,
+      title: `Prevlaw | ${blogData.titulo}`,
       meta: [
-        { property: 'og:title',  content: `Prevlaw | ${blogData.title}`},
+        { property: 'og:title',  content: `Prevlaw | ${blogData.titulo}`},
         { name: "description", content: blogData.tagline },
         { property: 'og:description',  content: blogData.tagline},
-        { property: 'og:image',  content: blogData.cover},
-        { name: 'twitter:image',  content: blogData.cover},
+        { property: 'og:image',  content: blogData.capa},
+        { name: 'twitter:image',  content: blogData.capa},
         { name: 'twitter:description', content: blogData.tagline }
       ]
   })
