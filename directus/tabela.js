@@ -8,7 +8,8 @@ const objectContructor = async (dir, fs) => {
   peticoes.forEach(async (item, num) => {
     let i = { ...item };
     i.slug = common.slugify(item.titulo);
-    i.tabela = item.tabela.replace(/\/\/assets/g, '/assets');
+    let regex = /http:\/\/143\.198\.106\.178\/{0,2}\/assets/g;
+    i.tabela = item.tabela.replace(regex, 'https://143.198.106.178/assets')
 
     fs.writeFile(
       `${dir}/${i.slug}.json`,

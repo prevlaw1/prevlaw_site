@@ -26,7 +26,7 @@ const getDirectusData = async (collectionName, junctionFields=undefined) => {
 
 // getImageUrl
 const getImage = (imageId) => {
-  return `${ process.env.DIRECTUS_BASE_URL }/assets/${ imageId }`;
+  return `${ process.env.DIRECTUS_IMAGE_BASE_URL }/assets/${ imageId }`;
 }
 
 // file download example
