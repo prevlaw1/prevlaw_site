@@ -8,15 +8,15 @@ const objectContructor = async (dir, fs) => {
   peticoes.forEach(async (item, num) => {
     let i = { ...item };
     i.slug = item.id;
-    i.capa = i.capa ? common.getImage(item.capa.id): null;
+    i.capa = i.capa ? await common.getImage(item.capa.id): null;
     if(item.publicacao) {
-      i.publicacao.capa = common.getImage(i.publicacao.capa)
+      i.publicacao.capa = await common.getImage(i.publicacao.capa)
       i.publicacao.slug = common.slugify(i.publicacao.titulo)
     } else if (item.beneficio) {
-      i.beneficio.capa = common.getImage(i.beneficio.capa)
+      i.beneficio.capa = await common.getImage(i.beneficio.capa)
       i.beneficio.slug = common.slugify(i.beneficio.titulo)
     } else if (item.revisao) {
-      i.revisao.capa = common.getImage(i.revisao.capa)
+      i.revisao.capa = await common.getImage(i.revisao.capa)
       i.revisao.slug = common.slugify(i.revisao.titulo)
     }
 

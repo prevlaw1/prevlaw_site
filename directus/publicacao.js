@@ -8,11 +8,11 @@ const objectContructor = async (dir, fs) => {
   peticoes.forEach(async (item, num) => {
     let i = { ...item };
     i.slug = common.slugify(item.titulo);
-    i.capa = common.getImage(item.capa.id);
+    i.capa = await common.getImage(item.capa.id);
     i.type = 'noticias'
     i.categoriaSlug = common.slugify(item.categoria.titulo)
     i.autorSlug = common.slugify(item.autor.nome)
-    i.autor.picture = common.getImage(item.autor.picture)
+    i.autor.picture = await common.getImage(item.autor.picture)
     let regex = /http:\/\/143\.198\.106\.178\/{0,2}\/assets/g;
     i.conteudo = item.conteudo.replace(regex, 'http://143.198.106.178/assets')
 

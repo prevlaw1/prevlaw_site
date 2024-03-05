@@ -7,7 +7,7 @@ const objectContructor = async (dir, fs) => {
   
   let i = { ...banner };
   i.slug = common.slugify(banner.titulo);
-  i.imagem = common.getImage(banner.imagem.id);
+  i.imagem = await common.getImage(banner.imagem.id);
 
   fs.writeFile(
     `${dir}/${i.slug}.json`,

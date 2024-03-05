@@ -8,7 +8,7 @@ const objectContructor = async (dir, fs) => {
   peticoes.forEach(async (item, num) => {
     let i = { ...item };
     i.slug = common.slugify(item.nome);
-    i.picture = common.getImage(item.picture.id);
+    i.picture = await common.getImage(item.picture.id);
 
     fs.writeFile(
       `${dir}/${i.slug}.json`,

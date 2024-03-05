@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import { createDirectus, staticToken, rest, readItems  } from '@directus/sdk';
+import { createDirectus, staticToken, rest, readItems, readFiles, readFile  } from '@directus/sdk';
 
 dotenv.config();
 
@@ -24,14 +24,34 @@ const getDirectusData = async (collectionName, junctionFields=undefined) => {
   return content;
 }
 
-const getAssets = async () => {
-  const content = await client.request(readFiles(query_object));
+const getDirectusAssets = async () => {
+  const content = await directus.request(readFiles({
+		query: {
+			filter: {
+				type: {
+					_eq: 'image',
+				},
+			},
+		},
+	}));
+
+  return content;
+}
+
+const getDirectusAsset = async (id) => {
+  const content = await directus.request(readFile(id, {
+    fields: ['*'],
+  }));
+
   return content;
 }
 
 // getImageUrl
-const getImage = (imageId) => {
-  return `${ process.env.DIRECTUS_IMAGE_BASE_URL }/assets/${ imageId }`;
+const getImage = async (imageId) => {
+  const image = await getDirectusAsset(imageId);
+  let ext = image.filename_download.split('.').pop();
+  return `${ process.env.DIRECTUS_IMAGE_BASE_URL }/assets/${imageId}.${ext}`;
+  //return `${ process.env.DIRECTUS_IMAGE_BASE_URL }/assets/${ imageId }`;
 }
 
 // file download example
@@ -91,5 +111,6 @@ export default {
   getImage,
   slugify,
   formatDate,
-  formatTime
+  formatTime,
+  getDirectusAssets
 };
