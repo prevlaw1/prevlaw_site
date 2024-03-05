@@ -50,7 +50,7 @@ const getDirectusAsset = async (id) => {
 const getImage = async (imageId) => {
   const image = await getDirectusAsset(imageId);
   let ext = image.filename_download.split('.').pop();
-  return `${ process.env.DIRECTUS_IMAGE_BASE_URL }/assets/${imageId}.${ext}`;
+  return `/images/directus/${imageId}.${ext}`;
   //return `${ process.env.DIRECTUS_IMAGE_BASE_URL }/assets/${ imageId }`;
 }
 
