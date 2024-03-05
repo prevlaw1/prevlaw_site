@@ -24,6 +24,11 @@ const getDirectusData = async (collectionName, junctionFields=undefined) => {
   return content;
 }
 
+const getAssets = async () => {
+  const content = await client.request(readFiles(query_object));
+  return content;
+}
+
 // getImageUrl
 const getImage = (imageId) => {
   return `${ process.env.DIRECTUS_IMAGE_BASE_URL }/assets/${ imageId }`;

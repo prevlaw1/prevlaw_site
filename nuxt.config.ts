@@ -7,7 +7,7 @@ export default defineNuxtConfig({
     head: {
       title: "Prevlaw",
       meta: [
-        { "http-equiv": "Content-Security-Policy", content: "img-src data: https: http:;"},
+        { "http-equiv": "Content-Security-Policy", content: "img-src data: https: http:; upgrade-insecure-requests;"},
         { name: "description", content: "Reforma da previdência, cálculo automático a partir do CNIS, cálculo de qualidade de segurado, conversão de tempos especiais em comum e especiais em especiais, checagem de pendências, panorama completo dos benefícios, relatórios de tempo e RMI." },
         { name: "viewport", content: "width=device-width, initial-scale=1" },
         { property: 'og:site_name',  content: 'Prevlaw'},
