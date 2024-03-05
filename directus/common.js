@@ -26,6 +26,7 @@ const getDirectusData = async (collectionName, junctionFields=undefined) => {
 
 const getDirectusAssets = async () => {
   const content = await directus.request(readFiles({
+    limit: -1,
 		query: {
 			filter: {
 				type: {
