@@ -73,7 +73,7 @@ const revisoes = await queryContent('revisoes').find();
 const destaquesHome = await queryContent('destaques-home').find();
 
 let todos = publicacoes.concat(beneficios, revisoes);
-todos = publicacoes.sort((a, b) => new Date(b.date) - new Date(a.date));
+todos = publicacoes.sort((a, b) => new Date(b.data) - new Date(a.data));
 let maisAcessadas = todos.sort((a, b) => b.acessos - a.acessos);
 maisAcessadas = maisAcessadas.slice(0, 6);
 todos = todos.slice(0, 3);
@@ -132,8 +132,7 @@ function buildItem(i) {
     return item;
 }
 
-destaquesHome[0].destaque_1.forEach(i => {
-  i.id = i.item;
+todos.forEach(i => {
   data.destaqueMeio.push(buildItem(i));
 });
 
