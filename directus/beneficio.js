@@ -14,7 +14,7 @@ const objectContructor = async (dir, fs) => {
     i.autorSlug = common.slugify(item.autor.nome)
     i.autor.picture = common.getImage(item.autor.picture)
     let regex = /http:\/\/143\.198\.106\.178\/{0,2}\/assets/g;
-    i.conteudo = item.conteudo.replace(regex, 'https://143.198.106.178/assets')
+    i.conteudo = item.conteudo.replace(regex, 'http://143.198.106.178/assets')
 
     fs.writeFile(
       `${dir}/${i.slug}.json`,

@@ -9,7 +9,7 @@ const objectContructor = async (dir, fs) => {
     let i = { ...item };
     i.slug = common.slugify(item.titulo);
     let regex = /http:\/\/143\.198\.106\.178\/{0,2}\/assets/g;
-    i.tabela = item.tabela.replace(regex, 'https://143.198.106.178/assets')
+    i.tabela = item.tabela.replace(regex, 'http://143.198.106.178/assets')
 
     fs.writeFile(
       `${dir}/${i.slug}.json`,
