@@ -122,7 +122,7 @@ function buildItem(i) {
         item.date = formatadorData.format(dataObj);
     }
     item.slug = publicacao.slug;
-    item.title = publicacao.title;
+    item.title = publicacao.titulo;
     item.image = i.capa? i.capa : publicacao.capa;
     item.brow = publicacao.categoria.titulo;
     item.url=`/${publicacao.type}/${item.slug}`;

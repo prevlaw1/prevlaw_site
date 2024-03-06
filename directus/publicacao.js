@@ -13,17 +13,19 @@ const objectContructor = async (dir, fs) => {
     i.categoriaSlug = common.slugify(item.categoria.titulo)
     i.autorSlug = common.slugify(item.autor.nome)
     i.autor.picture = await common.getImage(item.autor.picture)
-    let regex = /http:\/\/143\.198\.106\.178\/{0,2}\/assets/g;
-    i.conteudo = item.conteudo.replace(regex, 'http://143.198.106.178/assets')
-
-    fs.writeFile(
-      `${dir}/${i.slug}.json`,
-      JSON.stringify(i),
-      function (err) {
-        if (err) console.log("error", err);
-      }
-    );
-    console.log("ESCREVENDO PUBLICACAO: ", i.slug + ".json");
+    common.replaceImageUrls(i.conteudo).then(result => {
+      i.conteudo = result;
+      fs.writeFile(
+        `${dir}/${i.slug}.json`,
+        JSON.stringify(i),
+        function (err) {
+          if (err) console.log("error", err);
+        }
+      );
+      console.log("ESCREVENDO PUBLICACAO: ", i.slug + ".json");
+    }).catch(err => {
+      console.error(err);
+    });
   });
 }
 

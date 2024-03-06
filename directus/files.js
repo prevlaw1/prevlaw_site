@@ -13,6 +13,7 @@ const objectContructor = async (dir, fs) => {
     let i = { ...item };
     let ext = i.filename_download.split('.').pop();
     i.slug = `${i.id}.${ext}`;
+    console.log("ESCREVENDO IMAGEM: ", i.slug);
     const response = await axios.get(`${ process.env.DIRECTUS_IMAGE_BASE_URL }/assets/${i.id}`, {
         responseType: 'arraybuffer'
     });
@@ -24,7 +25,6 @@ const objectContructor = async (dir, fs) => {
         if (err) console.log("error", err);
       }
     );
-    console.log("ESCREVENDO IMAGEM: ", i.slug);
   });
 }
 

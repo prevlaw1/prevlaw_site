@@ -8,17 +8,19 @@ const objectContructor = async (dir, fs) => {
   peticoes.forEach(async (item, num) => {
     let i = { ...item };
     i.slug = common.slugify(item.titulo);
-    let regex = /http:\/\/143\.198\.106\.178\/{0,2}\/assets/g;
-    i.tabela = item.tabela.replace(regex, 'http://143.198.106.178/assets')
-
-    fs.writeFile(
-      `${dir}/${i.slug}.json`,
-      JSON.stringify(i),
-      function (err) {
-        if (err) console.log("error", err);
-      }
-    );
-    console.log("ESCREVENDO TABELA: ", i.slug + ".json");
+    common.replaceImageUrls(i.tabela).then(result => {
+      i.tabela = result;
+      fs.writeFile(
+        `${dir}/${i.slug}.json`,
+        JSON.stringify(i),
+        function (err) {
+          if (err) console.log("error", err);
+        }
+      );
+      console.log("ESCREVENDO TABELA: ", i.slug + ".json");
+    }).catch(err => {
+      console.error(err);
+    });
   });
 }
 

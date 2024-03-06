@@ -55,6 +55,26 @@ const getImage = async (imageId) => {
   //return `${ process.env.DIRECTUS_IMAGE_BASE_URL }/assets/${ imageId }`;
 }
 
+const replaceImageUrls = async (text) => {
+  // Define regular expression to match the URLs
+  const urlRegex = /(?:https?:\/\/143\.198\.106\.178\/(?:\/)?assets\/([a-zA-Z0-9_-]+))/g;
+  
+  // Find all matches of the URL regex in the text
+  const matches = text.matchAll(urlRegex);
+  
+  // Iterate through matches and replace each URL with the result of getImage
+  for (const match of matches) {
+    const imageUrl = match[0];
+    const imageId = match[1];
+    // Call getImage function to get the replacement URL
+    const replacementUrl = await getImage(imageId);
+    // Replace the URL in the text with the replacement URL
+    text = text.replace(imageUrl, replacementUrl);
+  }
+  
+  return text;
+};
+
 // file download example
 {/* <a href="https://your-directus.com/assets/<file-id>?download" target="_blank" download="Your File.pdf">Download</a> */}
 
@@ -113,5 +133,6 @@ export default {
   slugify,
   formatDate,
   formatTime,
-  getDirectusAssets
+  getDirectusAssets,
+  replaceImageUrls
 };
