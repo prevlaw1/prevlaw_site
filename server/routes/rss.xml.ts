@@ -13,10 +13,11 @@ export default defineEventHandler(async (event) => {
     })
     
     
-    const docs = await serverQueryContent(event).sort({ date: -1 }).where({ _partial: false }).find()
+    const docs = await serverQueryContent(event).sort({ data: -1 }).where({ _partial: false }).find()
     
     let blogPosts = docs.filter((doc) => doc?.type?.includes('noticias') || doc?.type?.includes('beneficios') || doc?.type?.includes('revisoes'))
 
+    blogPosts = blogPosts.sort((a, b) => new Date(b.data).getTime() - new Date(a.data).getTime());
     
     blogPosts = blogPosts.splice(0, 3);
     
@@ -26,7 +27,7 @@ export default defineEventHandler(async (event) => {
         title: doc.titulo ?? '-',
         url: `https://www.prevlaw.com${ doc.type === 'noticias' ? '/noticias' : doc.type === 'beneficios' ? '/beneficios' : '/revisoes' }/${doc.slug }`,
         date: doc.data,
-        description: doc.tagline?doc.tagline:'-',
+        description: doc.excerpt?doc.excerpt:'-',
         //enclosure: {  url: doc.capa },
         custom_elements: [
          {

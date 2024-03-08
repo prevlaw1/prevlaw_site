@@ -1,6 +1,7 @@
 import fs from "fs";
 import rimraf from "rimraf";
 import common from "./common.js";
+import { DOMParser } from 'xmldom';
 
 const objectContructor = async (dir, fs) => {
   let peticoes = await common.getDirectusData("beneficios");
@@ -13,6 +14,14 @@ const objectContructor = async (dir, fs) => {
     i.categoriaSlug = common.slugify(item.categoria.titulo)
     i.autorSlug = common.slugify(item.autor.nome)
     i.autor.picture = await common.getImage(item.autor.picture)
+    let firstParagraph = '';
+    const parser = new DOMParser();
+    const htmlDoc = parser.parseFromString(i.conteudo, 'text/html');
+    const paragraphs = htmlDoc.getElementsByTagName('p');
+    if (paragraphs.length > 0) {
+      firstParagraph = paragraphs[0].textContent.trim();
+    }
+    i.excerpt = firstParagraph;
     common.replaceImageUrls(i.conteudo).then(result => {
       i.conteudo = result;
       fs.writeFile(
