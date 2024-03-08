@@ -7,6 +7,9 @@ export default defineEventHandler(async (event) => {
       description: 'Feed RSS para o site Prevlaw',
       site_url: 'https://www.prevlaw.com',
       feed_url: `https://www.prevlaw.com/rss.xml`,
+      custom_namespaces: {
+           media: "http://search.yahoo.com/mrss/",
+       }
     })
     
     
@@ -20,11 +23,21 @@ export default defineEventHandler(async (event) => {
     for (const doc of blogPosts) {
     
       feed.item({
-        title: doc.title ?? '-',
+        title: doc.titulo ?? '-',
         url: `https://www.prevlaw.com${ doc.type === 'noticias' ? '/noticias' : doc.type === 'beneficios' ? '/beneficios' : '/revisoes' }/${doc.slug }`,
-        date: doc.date,
-        description: doc.excerpt?doc.excerpt:'-',
-        enclosure: {  url: doc.cover },
+        date: doc.data,
+        description: doc.tagline?doc.tagline:'-',
+        //enclosure: {  url: doc.capa },
+        custom_elements: [
+         {
+           'media:content': [
+               {
+                   _attr: {
+                       medium: 'image',
+                       URL:  `https://www.prevlaw.com${doc.capa}`
+                   }
+               }]
+         }]
       })
     
     }
