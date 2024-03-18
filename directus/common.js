@@ -40,9 +40,11 @@ const getDirectusAssets = async () => {
 }
 
 const getDirectusAsset = async (id) => {
+  console.log('AQUI', id)
   const content = await directus.request(readFile(id, {
     fields: ['*'],
   }));
+  console.log('AQUI2', id)
 
   return content;
 }

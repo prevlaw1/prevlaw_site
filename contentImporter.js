@@ -16,7 +16,7 @@ console.log(chalk.green('IMPORTANTO CONTEUDO DO DIRECTUS...'));
 console.log('');
 console.log(chalk.green('[ AUTORES - CATEGORIAS - PUBLICACOES - BENEFICIOS - REVISOES - TABELAS - DESTAQUES - BANNER DESTAQUE]'));
 
-getFiles();
+await getFiles();
 getAutores();
 getCategorias();
 getPublicacoes();
