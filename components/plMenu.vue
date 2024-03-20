@@ -146,7 +146,7 @@
 
     tabelas.forEach(element => {
         let item = {
-            title: element.title,
+            title: element.titulo,
             url: `/ferramentas/${element.slug}`
         };
         data.nav[3].submenu.push(item);
