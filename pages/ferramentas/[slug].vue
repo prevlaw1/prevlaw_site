@@ -2,13 +2,13 @@
     <section>
         <default-hero image="/images/default-hero.webp">
             <div class="center | default-hero__content" size="wide">
-                <h1 class="default-hero__title">{{ data.post.title }}</h1>
+                <h1 class="default-hero__title">{{ data.post.titulo }}</h1>
                 <div class="breadcrumbs">
                     <nuxt-link to="/" class="breadcrumbs__link">Home</nuxt-link>
                     <span class="material-symbols-outlined">chevron_right</span>
                     <p class="breadcrumbs__link">Ferramentas</p>
                     <span class="material-symbols-outlined">chevron_right</span>
-                    <p class="breadcrumbs__current">{{ data.post.title }}</p>
+                    <p class="breadcrumbs__current">{{ data.post.titulo }}</p>
                 </div>
             </div>
         </default-hero>
@@ -41,9 +41,9 @@
     });
 
 useHead({
-  title: `Prevlaw | ${tabelas.title}`,
+  title: `Prevlaw | ${tabelas.titulo}`,
   meta: [
-    { property: 'og:title',  content: `Prevlaw | ${tabelas.title}`},
+    { property: 'og:title',  content: `Prevlaw | ${tabelas.titulo}`},
     { name: "description", content: tabelas.tagline },
     { property: 'og:description',  content: tabelas.tagline},
     { name: 'twitter:description', content: tabelas.tagline }
