@@ -11,11 +11,11 @@ const objectContructor = async (dir, fs) => {
   peticoes.forEach(async (item, num) => {
     let i = { ...item };
     i.slug = common.slugify(item.titulo);
-    i.capa = await getImageURL(item.capa.id);
+    i.capa = await common.getImage(item.capa.id);
     i.type = 'noticias'
     i.categoriaSlug = common.slugify(item.categoria.titulo)
     i.autorSlug = common.slugify(item.autor.nome)
-    i.autor.picture = await getImageURL(item.autor.picture)
+    i.autor.picture = await common.getImage(item.autor.picture)
     let firstParagraph = '';
     const parser = new DOMParser();
     const htmlDoc = parser.parseFromString(i.conteudo, 'text/html');
@@ -74,12 +74,5 @@ const getPublicacoes = async () => {
   }
 }
 
-
-const getImageURL = async (imageId) => {
-  const image = files.find(file => file.id === imageId);
-  let ext = image.filename_download.split('.').pop();
-  return `/images/directus/${imageId}.${ext}`;
-  //return `${ process.env.DIRECTUS_IMAGE_BASE_URL }/assets/${ imageId }`;
-}
 
 export default getPublicacoes

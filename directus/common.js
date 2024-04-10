@@ -32,22 +32,23 @@ const getDirectusAssets = async () => {
   return content;
 }
 
+const getFileSlug = (files, fileId) => {
+  let file = files.find(file => file.id === fileId);
+  let slug = `${ fileId }.${file.filename_download.split('.').pop()}`;
+  return slug;
+}
+
 const getDirectusAsset = async (id) => {
-  console.log('AQUI', id)
   const content = await directus.request(readFile(id, {
     fields: ['*'],
   }));
-  console.log('AQUI2', id)
 
   return content;
 }
 
 // getImageUrl
 const getImage = async (imageId) => {
-  const image = await getDirectusAsset(imageId);
-  let ext = image.filename_download.split('.').pop();
-  return `/images/directus/${imageId}.${ext}`;
-  //return `${ process.env.DIRECTUS_IMAGE_BASE_URL }/assets/${ imageId }`;
+  return `${ process.env.DIRECTUS_IMAGE_BASE_URL }/assets/${ imageId }`;
 }
 
 const replaceImageUrls = async (text) => {
@@ -129,5 +130,6 @@ export default {
   formatDate,
   formatTime,
   getDirectusAssets,
-  replaceImageUrls
+  replaceImageUrls,
+  getFileSlug
 };

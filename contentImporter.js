@@ -9,14 +9,14 @@ import getTabelas from './directus/tabela.js';
 import getDestaques from './directus/destaquesHome.js';
 import getBannerDestaque from './directus/bannerDestaque.js';
 import getCarrosselHome from './directus/carrosselHome.js';
-import getFiles from './directus/files.js';
+//import getFiles from './directus/files.js';
 
 console.log('');
 console.log(chalk.green('IMPORTANTO CONTEUDO DO DIRECTUS...'));
 console.log('');
 console.log(chalk.green('[ AUTORES - CATEGORIAS - PUBLICACOES - BENEFICIOS - REVISOES - TABELAS - DESTAQUES - BANNER DESTAQUE]'));
 
-await getFiles();
+//await getFiles();
 getAutores();
 getCategorias();
 getPublicacoes();
