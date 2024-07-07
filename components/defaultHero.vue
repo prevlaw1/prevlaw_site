@@ -1,5 +1,5 @@
 <template>
-    <header class="hero | default-hero" :style="`background-image:url(${image})`">
+    <header class="hero | default-hero" :class="{'default-hero__no-gradient': !gradient}" :style="`background-image:url(${image})`">
       <pl-menu></pl-menu>
       <slot></slot>
     </header>
@@ -10,7 +10,11 @@
         image: {
             type: String,
             default: 'default-hero.webp',
-        }
+        },
+        gradient: {
+            type: Boolean,
+            default: true,
+        },
     });
 </script>
 
@@ -48,6 +52,15 @@
         }
         @media (max-width: 36em) {
             height: 350px;
+        }
+    }
+
+    .default-hero__no-gradient {
+        &::after {
+            display: none;
+        }
+        &::before {
+            display: none;
         }
     }
 

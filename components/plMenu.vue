@@ -113,12 +113,11 @@
     const tabelas = await queryContent('tabelas').find();
     const data = reactive({
         nav: [
-            /*{
-                title: 'Produto',
-                url: '#',
-                target: "_blank"
-            },
             {
+                title: 'Produto',
+                url: '/produto'
+            },
+            /*{
                 title: 'Assine',
                 url: '#',
                 target: "_blank"
@@ -126,7 +125,6 @@
             {
                 title: 'Notícias',
                 url: '/busca?noticias=true'
-                //url: '/noticias',
             },
             {
                 title: 'Benefícios',
@@ -149,7 +147,7 @@
             title: element.titulo,
             url: `/ferramentas/${element.slug}`
         };
-        data.nav[3].submenu.push(item);
+        data.nav[4].submenu.push(item);
     });
 
     const abrirMenu = (id) => {

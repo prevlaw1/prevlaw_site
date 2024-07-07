@@ -8,9 +8,15 @@
 .center {
     margin: 0 auto
 }
+
 .center[size="wide"] {
     width: min(90%, 1280px);
 }
+
+.center[size="narrow"] {
+    width: min(80%, 740px);
+}
+
 
 .reel {
     width: 100%;
@@ -169,15 +175,40 @@
         border-radius: 20px;
     }
 
+        .button--sm {
+            padding: 0 20px;
+            font-size: 0.875em;
+        }
+
         .button--primary {
             background-color: #0054A8;
             color: white;
+            span {
+                color: white;
+            }
+        }
+
+        .button--white {
+            color: #0054A8;
+            background-color: white;
+            span {
+                color: #0054A8;
+            }
         }
 
         .button--secondary {
             background: none;
             border: 1px solid white;
             color: hsla(0, 0%, 100%, 0.9);
+            span {
+                color: hsla(0, 0%, 100%, 0.9);
+            }
+        }
+
+        .button--icon {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
         }
 
         .button--full {
@@ -248,3 +279,49 @@
         display: none!important;
     }
 }
+
+
+
+.row {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+}
+
+    .row--center {
+        justify-content: center;
+    }
+
+    .row--10 {
+        gap: 10px;
+    }
+
+
+
+.col {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+}
+
+    .col--center {
+        align-items: center;
+    }
+
+    .col--16 {
+        gap: 16px;
+    }
+
+
+    .col--24 {
+        gap: 24px;
+    }
+
+    .col--40 {
+        gap: 40px;
+    }
+
+.bold {
+    font-weight: 700;
+}
+
