@@ -19,7 +19,12 @@ export default defineNuxtConfig({
         { name: 'twitter:description', content: 'Reforma da previdência, cálculo automático a partir do CNIS, cálculo de qualidade de segurado, conversão de tempos especiais em comum e especiais em especiais, checagem de pendências, panorama completo dos benefícios, relatórios de tempo e RMI.' }
       ],
       script: [
-        { id: 'mcjs', children:'!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/18e80cddaa76b0befc4d3a492/6f7bcd138243b7e49ceaf79f8.js");'}
+        { id: 'mcjs', children:'!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/18e80cddaa76b0befc4d3a492/6f7bcd138243b7e49ceaf79f8.js");'},
+        {children:`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K2PGWB7M');`}
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
