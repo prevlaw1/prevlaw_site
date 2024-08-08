@@ -77,7 +77,6 @@ todos = publicacoes.sort((a, b) => new Date(b.data) - new Date(a.data));
 let maisAcessadas = todos.sort((a, b) => b.acessos - a.acessos);
 maisAcessadas = maisAcessadas.slice(0, 6);
 todos = todos.slice(0, 3);
-console.log('TODOS', todos);
 
 const data = reactive({
     destaqueMeio: [],

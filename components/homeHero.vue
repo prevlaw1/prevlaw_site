@@ -8,6 +8,7 @@
                     <div class="hero-reel__content">
                         <brow-date :brow="i.categoria" :date="i.date" color="secondary" v-if="i.categoria || i.date"></brow-date>
                         <nuxt-link :to="i.url" class="hero-reel__title"><p>{{ i.title }}</p></nuxt-link>
+                        <div class="hero-reel__subtitle">por {{ i.autor }}</div>
                     </div>
                 </div>
             </div>
@@ -31,6 +32,7 @@
 <script setup>
 import { ref, watch, onMounted } from 'vue';
 const categorias = await queryContent('categorias').find();
+const autores = await  queryContent('autores').find();
 const reel = await queryContent('reel').find();
 
 const data = reactive({
@@ -64,7 +66,8 @@ function buildPost(publicacao) {
   item.slug = publicacao.slug;
   item.title = publicacao.titulo;
   item.image = publicacao.capa;
-  item.categoria = categorias.find(c => c.id === publicacao.categoria).name;
+  item.categoria = categorias.find(c => c.id == publicacao.categoria).titulo;
+  item.autor = autores.find(c => c.id == publicacao.autor).nome;
   item.type = publicacao.type;
   item.url=`/${item.type}/${item.slug}`;
   return item;
@@ -146,7 +149,7 @@ onMounted(() => {
 <style lang="scss" scoped>
     .hero-reel__item {
         position: relative;
-        width: 102vw;
+        width: 100%;
         height: 450px;
         flex-shrink: 0;
         padding-bottom: 132px;
@@ -197,16 +200,21 @@ onMounted(() => {
     }
 
     .hero-reel__title {
-        font-family: var(--display-font);
-        font-weight: 500;
-        font-size: 1.5em;
+        font-family: var(--body-font);
+        font-weight: 300;
+        font-size: 2.5em;
+        max-width: 800px;
         text-decoration: none;
         color: white;
-        max-width: 675px;
         width: 100%;
         p {
             color: white;
         }
+    }
+
+    .hero-reel__subtitle {
+      color: hsla(0, 0%, 100%, 0.75);
+      font-weight: 700;
     }
 
     .hero-reel__position-indicators {
