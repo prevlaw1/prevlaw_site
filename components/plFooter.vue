@@ -1,9 +1,19 @@
 <template>
     <footer class="footer">
         <div class="center | footer__content" size="wide">
-            <nuxt-link to="/" class="footer__logo-link">
-                <img format="webp" src="/images/logo-vertical.webp" alt="Prevlaw" class="footer-logo" />
-            </nuxt-link>
+            <div class="footer__column">
+                <nuxt-link to="/" class="footer__logo-link">
+                    <img format="webp" src="/images/logo-vertical.webp" alt="Prevlaw" class="footer-logo" />
+                </nuxt-link>
+                <div class="footer__row">
+                    <nuxt-link to="/termos" class="footer__link">
+                        Termos e condições de de uso
+                    </nuxt-link>
+                    <nuxt-link to="/privacidade" class="footer__link">
+                        Políticas de privacidade
+                    </nuxt-link>
+                </div>
+            </div>
             <div class="footer__column" v-for="c in nav" v-bind:key="c.title">
                 <h3 class="footer__title">{{ c.title }}</h3>
                 <ul class="footer__list">
@@ -155,7 +165,6 @@
             display: flex;
             flex-flow: row nowrap;
             gap: 64px;
-            align-items: flex-start;
             justify-content: space-between;
             @media (max-width: 36em) {
                 flex-flow: column nowrap;
@@ -165,11 +174,28 @@
 
         .footer-logo {
             flex-shrink: 1;
+            max-width: 127px;
         }
 
         .footer__column {
+            display: flex;
+            flex-flow: column nowrap;
             @media (max-width: 36em) {
                 text-align: center;
+                gap: 32px;
+                align-items: center;
+            }
+        }
+
+        .footer__row {
+            display: flex;
+            flex-flow: rown nowrap;
+            gap: 32px;
+            align-items: flex-end;
+            flex-grow: 1;
+            @media (max-width: 36em) {
+                flex-direction: column;
+                align-items: center;
             }
         }
 

@@ -248,3 +248,42 @@
         display: none!important;
     }
 }
+
+
+
+.document-page {
+    background: white;
+    .prose {
+        p {
+            line-height: 1.6em;
+        }
+    }
+}
+
+header.default-hero.blue-hero {
+    background: #006cd1;
+    position: relative;
+    height: auto;
+    padding-bottom: 0;
+    &::after {
+        display: none;
+    }
+    &::before {
+        display: none;
+    }
+    .main-menu__link {
+        color: white;
+    }
+}
+
+.document-content {
+    padding-top: 60px;
+    padding-bottom: 84px;
+}
+
+.document__titulo {
+    padding-bottom: 32px;
+    font-size: 2.5em;
+    font-weight: 800;
+    color: hsla(0, 0%, 10%, 0.8);
+}

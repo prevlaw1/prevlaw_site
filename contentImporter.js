@@ -9,6 +9,9 @@ import getTabelas from './directus/tabela.js';
 import getDestaques from './directus/destaquesHome.js';
 import getBannerDestaque from './directus/bannerDestaque.js';
 import getCarrosselHome from './directus/carrosselHome.js';
+import getTermos from './directus/termos.js';
+import getPrivacidade from './directus/privacidade.js';
+
 //import getFiles from './directus/files.js';
 
 console.log('');
@@ -26,3 +29,5 @@ getTabelas();
 getDestaques();
 getBannerDestaque();
 getCarrosselHome();
+getTermos();
+getPrivacidade();
