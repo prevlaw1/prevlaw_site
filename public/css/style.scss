@@ -300,10 +300,18 @@ header.default-hero.blue-hero {
     font-weight: 500;
 }
 
+    .assine-button--secondary {
+        background: none;
+    }
+
 .document-page {
     .assine-button {
         background-color: hsla(0, 0%, 100%, 1);
         color: hsla(210, 57%, 33%, 1);
         font-weight: 600;
     }
+        .assine-button--secondary {
+            background: none;
+            color: hsla(0, 0%, 100%, 1);
+        }
 }

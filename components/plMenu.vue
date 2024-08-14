@@ -21,7 +21,8 @@
                     </li>
                 </ul>
                 <div class="main-menu__actions">
-                    <nuxt-link class="assine-button" target="_blank" to="https://app.prevlaw.com" >Assine agora</nuxt-link>
+                    <nuxt-link class="assine-button assine-button--secondary" target="_blank" to="https://app.prevlaw.com/" >Login</nuxt-link>
+                    <nuxt-link class="assine-button" target="_blank" to="https://app.prevlaw.com/auth/register" >Assine agora</nuxt-link>
                 </div>
             </nav>
             <nav class="main-menu | main-menu--mobile | not-desktop" aria-hidden="true">
@@ -33,7 +34,10 @@
                         <img format="webp" src="/images/logo-horizontal.webp" alt="Prevlaw" class="main-menu__logo" />
                     </nuxt-link>
                 </div>
-                <nuxt-link class="assine-button" target="_blank" to="https://app.prevlaw.com" >Assine agora</nuxt-link>
+                <div class="main-menu__actions">
+                    <nuxt-link class="assine-button assine-button--secondary" target="_blank" to="https://app.prevlaw.com/" >Login</nuxt-link>
+                    <nuxt-link class="assine-button" target="_blank" to="https://app.prevlaw.com/auth/register" >Assine agora</nuxt-link>
+                </div>
                 <dialog id="menuDialog" class="main-menu__dialog | dialog">
                     <div class="dialog__content">
                         <div class="dialog__title">
