@@ -287,3 +287,23 @@ header.default-hero.blue-hero {
     font-weight: 800;
     color: hsla(0, 0%, 10%, 0.8);
 }
+
+.assine-button {
+    background-color: hsla(210, 57%, 33%, 1);
+    color: hsla(0, 0%, 100%, 1);
+    font-size: 0.875em;
+    line-height: 1.4em;
+    text-decoration: none;
+    padding: 8px 19px;
+    border-radius: 8px;
+    box-shadow: 0px 1px 2px 0px hsla(222, 11%, 36%, 0.06);
+    font-weight: 500;
+}
+
+.document-page {
+    .assine-button {
+        background-color: hsla(0, 0%, 100%, 1);
+        color: hsla(210, 57%, 33%, 1);
+        font-weight: 600;
+    }
+}
